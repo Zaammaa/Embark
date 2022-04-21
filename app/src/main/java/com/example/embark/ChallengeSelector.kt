@@ -12,6 +12,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int) {
         this.playerCount = playerCount
     }
 
+    //TODO make this able to use any challenge, not just passing.
     fun generate(): MutableList<Challenge>{
         var challengeList: MutableList<Challenge> = mutableListOf()
 

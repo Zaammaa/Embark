@@ -18,7 +18,7 @@ class PassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberO
         passes = chooseNumberOfPasses()
         challengeDifficulty = when (passes) {
             0 -> {
-                1 - getDifficutlyMod()
+                1 - getDifficultyMod()
             }
             1 -> {
                 //1 pass is considered normal difficulty
@@ -26,7 +26,7 @@ class PassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberO
             }
             else -> {
                 //subtract the difficulty modifier for each pass above 1
-                getDifficutlyMod() * (passes - 1)
+                getDifficultyMod() * (passes - 1)
             }
         }
         return this
