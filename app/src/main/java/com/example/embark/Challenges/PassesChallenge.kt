@@ -1,5 +1,5 @@
 package com.example.embark.Challenges
-
+import com.example.embark.R
 import kotlin.random.Random
 
 class PassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
@@ -9,8 +9,8 @@ class PassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberO
         get() = arrayOf(-2,-2,-2)
     override val description: String
         get() = "Each pass lets one player pass a task to another player after the tasks have been chosen,"
-    override val iconPath: String
-        get() = TODO("Not yet implemented")
+    override val icon: Int
+        get() = R.drawable.octopus_black
 
     var passes = 1
 

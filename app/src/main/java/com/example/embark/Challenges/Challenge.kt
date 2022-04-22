@@ -17,8 +17,8 @@ abstract class Challenge(numberOfPlayers: Int, difficulty: Int) {
     abstract val difficultyMod: Array<Int>
     //description: Text that appears in the UI when the user wants to read what the challenge means
     abstract val description: String
-    //iconPath: path to the icon for display in the challenge table
-    abstract val iconPath: String
+    //iconPath: R.drawable reference
+    abstract val icon: Int
     //challengeDifficulty: the total difficulty of the challenge, determined by the subclass. This is different from the difficulty mod because the subclass often has extra modifiers that affect the difficulty
     //for example, the passes challenge can choose differing numbers of passes.
     var challengeDifficulty = 0

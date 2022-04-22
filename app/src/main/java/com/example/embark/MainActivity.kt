@@ -1,20 +1,11 @@
 package com.example.embark
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.EditText
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
-import com.example.embark.Challenges.Challenge
-import android.widget.LinearLayout
-import androidx.core.view.updateLayoutParams
 import android.view.Gravity
-
-
-
-
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.example.embark.Challenges.Challenge
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,8 +84,6 @@ class MainActivity : AppCompatActivity() {
             TableRow.LayoutParams.WRAP_CONTENT
         )
 
-
-
         var row: TableRow = TableRow(this)
 
         row.setLayoutParams(
@@ -103,30 +92,31 @@ class MainActivity : AppCompatActivity() {
                 TableRow.LayoutParams.WRAP_CONTENT
             )
         )
-
-        row.setGravity(Gravity.LEFT)
+        row.setGravity(Gravity.CENTER)
         row.setWeightSum(1f) //total row weight
 
-        var lp: TableRow.LayoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0.66f)
+        var icon: ImageView = ImageView(this)
+        icon.setImageResource(challenge.icon)
+        icon.layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0.25f)
+        icon.setPadding(0, 20, 0, 20)
+        row.addView(icon)
 
         var description: TextView = TextView(this)
         description.setText(challenge.description)
-        //description.maxWidth = 400
-        description.layoutParams = lp
-
-        row.addView(description)
+        createTableCell(row, description, .5f)
 
         var difficulty: TextView = TextView(this)
         //difficulty.maxWidth = 200
-
-        lp = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0.34f)
-
-        difficulty.layoutParams = lp
-        //difficulty.setText("test Text")
         difficulty.setText(challenge.challengeDifficulty.toString())
-        row.addView((difficulty))
+        createTableCell(row, difficulty,.25f)
 
+        row.setBackgroundResource(R.drawable.challenge_table_row_outline)
         table.addView(row)
     }
-
+    fun createTableCell(row: TableRow, cell: TextView, weight: Float){
+        cell.setGravity(Gravity.CENTER)
+        cell.layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, weight)
+        cell.setPadding(0,10, 0,10)
+        row.addView(cell)
+    }
 }
