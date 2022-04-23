@@ -68,8 +68,8 @@ class PassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberO
 
     override fun displayShortDescription(): String{
         if (passes > 1){
-            return "Pass up to $passes tasks after all tasks have been chosen"
+            return "$passes task card passes"
         }
-        return "You may pass $passes task after all tasks have been chosen"
+        return "$passes task card pass"
     }
 }
