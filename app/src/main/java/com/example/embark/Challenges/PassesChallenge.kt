@@ -61,4 +61,15 @@ class PassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberO
             }
         }
     }
+
+    override fun displayFullDescription(): String{
+        return description
+    }
+
+    override fun displayShortDescription(): String{
+        if (passes > 1){
+            return "Pass up to $passes tasks after all tasks have been chosen"
+        }
+        return "You may pass $passes task after all tasks have been chosen"
+    }
 }

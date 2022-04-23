@@ -102,13 +102,8 @@ class MainActivity : AppCompatActivity() {
         row.addView(icon)
 
         var description: TextView = TextView(this)
-        description.setText(challenge.description)
-        createTableCell(row, description, .5f)
-
-        var difficulty: TextView = TextView(this)
-        //difficulty.maxWidth = 200
-        difficulty.setText(challenge.challengeDifficulty.toString())
-        createTableCell(row, difficulty,.25f)
+        description.setText(challenge.displayShortDescription())
+        createTableCell(row, description, .75f)
 
         row.setBackgroundResource(R.drawable.challenge_table_row_outline)
         table.addView(row)

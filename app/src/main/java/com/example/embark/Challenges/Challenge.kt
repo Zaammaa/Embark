@@ -31,17 +31,19 @@ abstract class Challenge(numberOfPlayers: Int, difficulty: Int) {
 
 
     open fun chooseChallenge(): Challenge {
-        return this
+        throw NotImplementedError("Function not overridden")
     }
 
     fun getDifficultyMod(): Int {
         return difficultyMod[players - 3]
     }
 
-    fun displayDescription(context: Context){
-//        var dialog: Dialog = Dialog(context)
-//        var txt: TextView = dialog.findViewById<TextView>(R.id.textbox)
-//        dialog.
+    open fun displayFullDescription(): String{
+        throw NotImplementedError("Function not overridden")
+    }
+
+    open fun displayShortDescription(): String{
+        throw NotImplementedError("Function not overridden")
     }
 
 }
