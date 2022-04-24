@@ -1,9 +1,6 @@
 package com.example.embark
 
-import com.example.embark.Challenges.CardPassesChallenge
-import com.example.embark.Challenges.Challenge
-import com.example.embark.Challenges.PassesChallenge
-import com.example.embark.Challenges.UnorderedCommunicationChallenge
+import com.example.embark.Challenges.*
 
 class ChallengeSelector(difficulty: Int, playerCount: Int) {
     var difficulty = 0
@@ -21,7 +18,8 @@ class ChallengeSelector(difficulty: Int, playerCount: Int) {
         challengeList.add(PassesChallenge(playerCount,difficulty).chooseChallenge())
         challengeList.add(UnorderedCommunicationChallenge(playerCount,difficulty).chooseChallenge())
         challengeList.add(CardPassesChallenge(playerCount,difficulty).chooseChallenge())
-
+        challengeList.add(CommandersDecisionRevealedChallenge(playerCount,difficulty).chooseChallenge())
+        challengeList.add(CommandersDecisionSecretChallenge(playerCount,difficulty).chooseChallenge())
         return challengeList
     }
 }
