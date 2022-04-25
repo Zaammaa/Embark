@@ -6,12 +6,28 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.embark.Challenges.Challenge
+import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
+    var gameTab = "planet nine"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var tabs = findViewById<TabLayout>(R.id.gameSelection)
+        tabs.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                var table = findViewById<TableLayout>(R.id.challengeTable)
+                table.removeAllViews()
+                gameTab = tab.text.toString().lowercase()
+            }
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+
+            }
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+
+            }
+        })
         //Setup the challenge table layout
 //        val tableParams = TableLayout.LayoutParams(
 //            TableLayout.LayoutParams.WRAP_CONTENT,
@@ -63,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         val playerCountView = findViewById<EditText>(R.id.playerCount)
         var playerCount = playerCountView.text.toString().toInt()
 
-        var selector: ChallengeSelector = ChallengeSelector(difficulty,playerCount)
+        var selector: ChallengeSelector = ChallengeSelector(difficulty,playerCount, this.gameTab)
         var challengeList: MutableList<Challenge> = selector.generate()
 
         var table = findViewById<TableLayout>(R.id.challengeTable)
