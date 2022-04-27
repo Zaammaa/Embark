@@ -17,8 +17,13 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         CardPassesChallenge::class,
         CommandersDecisionSecretChallenge::class,
         CommandersDecisionRevealedChallenge::class,
-        PassesChallenge::class,
-        UnorderedCommunicationChallenge::class
+        TaskPassesChallenge::class,
+        UnorderedCommunicationChallenge::class,
+        DisruptedCommunicateChallenge::class,
+        CommunicationPassesChallenge::class,
+        FewerCommunicationTokensChallenge::class,
+        CommanderIsSkippedChallenge::class,
+        FirstTurnCommunication::class
     )
 
     init{

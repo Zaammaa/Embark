@@ -4,31 +4,23 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class CardPassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
-
+class FirstTurnCommunication(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
     override val weight: Int
-        get() = 20
+        get() = 10
     override val difficultyMod: Array<Int>
-        get() = arrayOf(-2,-3,-3)
+        get() = arrayOf(4,4,4)
     override val description: String
-        get() = "After all tasks are chosen and after any passing of tasks, players may pass a card from hand"
-    override var icon: Int = R.drawable.distress_signal
+        get() = "All communication must be done before the first trick"
+    override var icon: Int = R.drawable.communication_token_disabled
 
     override val crew1Combatible: Boolean
         get() = true
     override val crew2Combatible: Boolean
         get() = true
     override val incompatibleWith: List<KClass<out Challenge>>
-        get() =  mutableListOf<KClass<out Challenge>>()
-
-    var direction = ""
+        get() =  mutableListOf<KClass<out Challenge>>(DisruptedCommunicateChallenge::class)
 
     override fun chooseChallenge(): Challenge {
-        if (Random.nextBoolean()){
-            direction = "left"
-        } else {
-            direction = "right"
-        }
         challengeDifficulty = getDifficultyMod()
         return this
     }
@@ -38,6 +30,6 @@ class CardPassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(num
     }
 
     override fun displayShortDescription(): String{
-        return "pass a card to the $direction"
+        return "Communicate before first trick"
     }
 }

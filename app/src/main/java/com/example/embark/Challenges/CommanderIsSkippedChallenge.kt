@@ -1,34 +1,25 @@
 package com.example.embark.Challenges
 
 import com.example.embark.R
-import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class CardPassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
-
+class CommanderIsSkippedChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
     override val weight: Int
-        get() = 20
+        get() = 5
     override val difficultyMod: Array<Int>
-        get() = arrayOf(-2,-3,-3)
+        get() = arrayOf(5,4,3)
     override val description: String
-        get() = "After all tasks are chosen and after any passing of tasks, players may pass a card from hand"
-    override var icon: Int = R.drawable.distress_signal
+        get() = "The captain cannot take any tasks. Reshuffle hands if this is not possible."
+    override var icon: Int = R.drawable.no_captain
 
     override val crew1Combatible: Boolean
         get() = true
     override val crew2Combatible: Boolean
         get() = true
     override val incompatibleWith: List<KClass<out Challenge>>
-        get() =  mutableListOf<KClass<out Challenge>>()
-
-    var direction = ""
+        get() =  mutableListOf<KClass<out Challenge>>(CommandersDecisionRevealedChallenge::class, CommandersDecisionSecretChallenge::class)
 
     override fun chooseChallenge(): Challenge {
-        if (Random.nextBoolean()){
-            direction = "left"
-        } else {
-            direction = "right"
-        }
         challengeDifficulty = getDifficultyMod()
         return this
     }
@@ -38,6 +29,6 @@ class CardPassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(num
     }
 
     override fun displayShortDescription(): String{
-        return "pass a card to the $direction"
+        return "The Captain cannot take any tasks"
     }
 }
