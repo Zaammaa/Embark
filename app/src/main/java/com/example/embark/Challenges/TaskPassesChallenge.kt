@@ -3,15 +3,15 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class PassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class TaskPassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
     override val weight: Int
         get() = 100
     override val difficultyMod: Array<Int>
         get() = arrayOf(-2,-2,-2)
     override val description: String
         get() = "Each pass lets one player pass a task to another player after the tasks have been chosen,"
-    override val icon: Int
-        get() = R.drawable.octopus_black
+    override var icon: Int = R.drawable.octopus_black
+
     override val crew1Combatible: Boolean
         get() = true
     override val crew2Combatible: Boolean

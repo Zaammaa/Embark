@@ -11,8 +11,7 @@ class UnorderedCommunicationChallenge(numberOfPlayers: Int, difficulty: Int) : C
         get() = arrayOf(3,3,3)
     override val description: String
         get() = "Communication tokens cannot be used to show the position of cards in hand"
-    override val icon: Int
-        get() = R.drawable.unordered_communication
+    override var icon: Int = R.drawable.unordered_communication
     override val crew1Combatible: Boolean
         get() = true
     override val crew2Combatible: Boolean

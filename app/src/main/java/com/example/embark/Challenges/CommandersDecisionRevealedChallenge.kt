@@ -11,8 +11,7 @@ class CommandersDecisionRevealedChallenge(numberOfPlayers: Int, difficulty: Int)
         get() = arrayOf(3,4,4)
     override val description: String
         get() = "With tasks face-down, commander asks each crew member 'yes' or 'no' if they can take all the tasks. Once the commander decides, reveal all the task cards"
-    override val icon: Int
-        get() = R.drawable.commanders_decision
+    override var icon: Int = R.drawable.commanders_decision
     override val crew1Combatible: Boolean
         get() = true
     override val crew2Combatible: Boolean
