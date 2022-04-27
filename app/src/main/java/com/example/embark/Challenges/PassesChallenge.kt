@@ -1,6 +1,7 @@
 package com.example.embark.Challenges
 import com.example.embark.R
 import kotlin.random.Random
+import kotlin.reflect.KClass
 
 class PassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
     override val weight: Int
@@ -11,6 +12,12 @@ class PassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberO
         get() = "Each pass lets one player pass a task to another player after the tasks have been chosen,"
     override val icon: Int
         get() = R.drawable.octopus_black
+    override val crew1Combatible: Boolean
+        get() = true
+    override val crew2Combatible: Boolean
+        get() = true
+    override val incompatibleWith: List<KClass<out Challenge>>
+        get() =  mutableListOf<KClass<out Challenge>>(CommandersDecisionSecretChallenge::class)
 
     var passes = 1
 
