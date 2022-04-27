@@ -10,7 +10,16 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
     var playerCount = 0
     var game = ""
 
-    val allChallenges: List<KClass<out Challenge>> = Challenge::class.sealedSubclasses
+    //We'll re-enable this if the Kotlin bug is fixed
+    //private val allChallenges: List<KClass<out Challenge>> = Challenge::class.sealedSubclasses
+    //For now, just list all challenges here manually
+    private val allChallenges: List<KClass<out Challenge>> = mutableListOf<KClass<out Challenge>>(
+        CardPassesChallenge::class,
+        CommandersDecisionSecretChallenge::class,
+        CommandersDecisionRevealedChallenge::class,
+        PassesChallenge::class,
+        UnorderedCommunicationChallenge::class
+    )
 
     init{
         this.difficulty = difficulty
