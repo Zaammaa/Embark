@@ -1,6 +1,7 @@
 package com.example.embark.Challenges
 
 import com.example.embark.R
+import kotlin.reflect.KClass
 
 class CommandersDecisionSecretChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
 
@@ -12,6 +13,12 @@ class CommandersDecisionSecretChallenge(numberOfPlayers: Int, difficulty: Int) :
         get() = "Draw tasks face-down, commander looks at them and asks each crew member 'yes' or 'no' if they can take all the tasks. Once the commander decides, only the chosen crew member may look at the tasks"
     override val icon: Int
         get() = R.drawable.commanders_decision
+    override val crew1Combatible: Boolean
+        get() = true
+    override val crew2Combatible: Boolean
+        get() = false
+    override val incompatibleWith: List<KClass<out Challenge>>
+        get() =  mutableListOf<KClass<out Challenge>>(CommandersDecisionRevealedChallenge::class, PassesChallenge::class)
 
     var tasks = 0
 

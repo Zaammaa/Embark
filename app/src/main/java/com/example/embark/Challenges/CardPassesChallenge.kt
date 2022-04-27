@@ -2,6 +2,7 @@ package com.example.embark.Challenges
 
 import com.example.embark.R
 import kotlin.random.Random
+import kotlin.reflect.KClass
 
 class CardPassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
 
@@ -13,6 +14,12 @@ class CardPassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(num
         get() = "After all tasks are chosen and after any passing of tasks, players may pass a card from hand"
     override val icon: Int
         get() = R.drawable.distress_signal
+    override val crew1Combatible: Boolean
+        get() = true
+    override val crew2Combatible: Boolean
+        get() = true
+    override val incompatibleWith: List<KClass<out Challenge>>
+        get() =  mutableListOf<KClass<out Challenge>>()
 
     var direction = ""
 

@@ -1,6 +1,7 @@
 package com.example.embark.Challenges
 
 import com.example.embark.R
+import kotlin.reflect.KClass
 
 class UnorderedCommunicationChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
 
@@ -12,6 +13,12 @@ class UnorderedCommunicationChallenge(numberOfPlayers: Int, difficulty: Int) : C
         get() = "Communication tokens cannot be used to show the position of cards in hand"
     override val icon: Int
         get() = R.drawable.unordered_communication
+    override val crew1Combatible: Boolean
+        get() = true
+    override val crew2Combatible: Boolean
+        get() = true
+    override val incompatibleWith: List<KClass<out Challenge>>
+        get() =  mutableListOf<KClass<out Challenge>>()
 
     override fun chooseChallenge(): Challenge {
         challengeDifficulty = getDifficultyMod()
