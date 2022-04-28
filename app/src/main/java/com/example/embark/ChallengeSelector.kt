@@ -23,7 +23,9 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         CommunicationPassesChallenge::class,
         FewerCommunicationTokensChallenge::class,
         CommanderIsSkippedChallenge::class,
-        FirstTurnCommunication::class
+        FirstTurnCommunication::class,
+        RandomCardPassChallenge::class,
+        WinEachTrumpChallenge::class
     )
 
     init{
