@@ -12,7 +12,7 @@ class WinEachTrumpChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(n
         get() = arrayOf(5,5,5)
     override val description: String
         get() = "Each trump card must win a trick."
-    override var icon: Int = R.drawable.rocket_cards_compressed
+    override var icon: Int = R.drawable.rocket_cards
 
     override val crew1Combatible: Boolean
         get() = true
