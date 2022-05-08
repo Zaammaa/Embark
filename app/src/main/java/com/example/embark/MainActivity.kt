@@ -117,6 +117,12 @@ class MainActivity : AppCompatActivity() {
         createTableCell(row, description, .75f)
 
         row.setBackgroundResource(R.drawable.challenge_table_row_outline)
+        row.setOnClickListener {
+            val descBox: DescriptionDialog = DescriptionDialog()
+            descBox.create(challenge, this)
+        }
+
+
         table.addView(row)
     }
     fun createTableCell(row: TableRow, cell: TextView, weight: Float){
