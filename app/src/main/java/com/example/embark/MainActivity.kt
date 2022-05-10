@@ -33,46 +33,12 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun increaseDifficulty(button: View){
-        var difficultyNumberView = findViewById<EditText>(R.id.difficultyNumber)
-        var difficulty = difficultyNumberView.text.toString().toInt()
-        difficulty += 1
-        difficultyNumberView.setText(difficulty.toString())
-    }
-
-    fun decreaseDifficulty(button: View){
-        val difficultyNumberView = findViewById<EditText>(R.id.difficultyNumber)
-        var difficulty = difficultyNumberView.text.toString().toInt()
-        if (difficulty > 1){
-            difficulty -= 1
-            difficultyNumberView.setText(difficulty.toString())
-        }
-    }
-
-    fun increasePlayerCount(button: View){
-        var playerCountView = findViewById<EditText>(R.id.playerCount)
-        var playerCount = playerCountView.text.toString().toInt()
-        if (playerCount < 5){
-            playerCount += 1
-            playerCountView.setText(playerCount.toString())
-        }
-    }
-
-    fun decreasePlayerCount(button: View){
-        var playerCountView = findViewById<EditText>(R.id.playerCount)
-        var playerCount = playerCountView.text.toString().toInt()
-        if (playerCount > 3){
-            playerCount -= 1
-            playerCountView.setText(playerCount.toString())
-        }
-    }
-
     fun generate(button: View){
-        val difficultyView = findViewById<EditText>(R.id.difficultyNumber)
-        var difficulty = difficultyView.text.toString().toInt()
+        val difficultyAdjuster: Adjuster = findViewById<EditText>(R.id.difficultyAdjuster) as Adjuster
+        var difficulty = difficultyAdjuster.getAdjusterValue()
 
-        val playerCountView = findViewById<EditText>(R.id.playerCount)
-        var playerCount = playerCountView.text.toString().toInt()
+        val playerCountAdjuster: Adjuster = findViewById<EditText>(R.id.playerCountAdjuster) as Adjuster
+        var playerCount = playerCountAdjuster.getAdjusterValue()
 
         var selector: ChallengeSelector = ChallengeSelector(difficulty,playerCount, this.gameTab)
         var challengeList: MutableList<Challenge> = selector.generate()
@@ -117,6 +83,12 @@ class MainActivity : AppCompatActivity() {
         createTableCell(row, description, .75f)
 
         row.setBackgroundResource(R.drawable.challenge_table_row_outline)
+        row.setOnClickListener {
+            val descBox: DescriptionDialog = DescriptionDialog()
+            descBox.create(challenge, this)
+        }
+
+
         table.addView(row)
     }
     fun createTableCell(row: TableRow, cell: TextView, weight: Float){

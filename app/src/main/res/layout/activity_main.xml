@@ -7,50 +7,8 @@
     android:background="#FFFFFF"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/difficultyNumber"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:background="#E91E63"
-        android:backgroundTint="@color/purple_500"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="number"
-        android:singleLine="true"
-        android:text="18"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/playerCountLabel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.076" />
-
-    <Button
-        android:id="@+id/decreaseDifficulty"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:lineSpacingExtra="8sp"
-        android:onClick="decreaseDifficulty"
-        android:text="-"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/playerCountLabel"
-        app:layout_constraintEnd_toStartOf="@+id/difficultyNumber"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.294"
-        app:shapeAppearance="@style/MaterialAlertDialog.MaterialComponents.Title.Panel" />
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/difficultyLabel"
         android:layout_width="116dp"
         android:layout_height="25dp"
         android:text="Difficulty"
@@ -63,6 +21,20 @@
         app:layout_constraintTop_toBottomOf="@+id/gameSelection"
         app:layout_constraintVertical_bias="0.015" />
 
+    <com.example.embark.Adjuster
+        android:id="@+id/difficultyAdjuster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:default_value="15"
+        app:max_value="99"
+        app:min_value="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/difficultyLabel"
+        app:layout_constraintBottom_toTopOf="@+id/playerCountLabel"
+        app:layout_constraintVertical_bias="0.294"
+    />
+
     <TextView
         android:id="@+id/playerCountLabel"
         android:layout_width="wrap_content"
@@ -74,6 +46,18 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.embark.Adjuster
+        android:id="@+id/playerCountAdjuster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerCountLabel"
+        app:default_value="4"
+        app:max_value="5"
+        app:min_value="3" />
 
     <Button
         android:id="@+id/button"
@@ -89,84 +73,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/increasePlayerCount"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:lineSpacingExtra="8sp"
-        android:onClick="increasePlayerCount"
-        android:text="+"
-        android:textSize="24sp"
-        app:iconPadding="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/playerCount"
-        app:layout_constraintTop_toBottomOf="@+id/playerCountLabel"
-        app:layout_constraintVertical_bias="0.447"
-        app:shapeAppearance="@style/MaterialAlertDialog.MaterialComponents.Title.Panel" />
 
-    <Button
-        android:id="@+id/decreasePlayerCount"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:lineSpacingExtra="8sp"
-        android:onClick="decreasePlayerCount"
-        android:text="-"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toStartOf="@+id/playerCount"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerCountLabel"
-        app:layout_constraintVertical_bias="0.447"
-        app:shapeAppearance="@style/MaterialAlertDialog.MaterialComponents.Title.Panel" />
-
-    <EditText
-        android:id="@+id/playerCount"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:background="#E91E63"
-        android:backgroundTint="@color/purple_500"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="number"
-        android:singleLine="true"
-        android:text="4"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerCountLabel"
-        app:layout_constraintVertical_bias="0.447" />
-
-    <Button
-        android:id="@+id/increaseDifficulty"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:lineSpacingExtra="8sp"
-        android:onClick="increaseDifficulty"
-        android:text="+"
-        android:textSize="24sp"
-        app:iconPadding="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/playerCountLabel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/difficultyNumber"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.294"
-        app:shapeAppearance="@style/MaterialAlertDialog.MaterialComponents.Title.Panel" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/gameSelection"

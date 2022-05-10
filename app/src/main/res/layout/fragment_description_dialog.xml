@@ -1,24 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/challenge_description_background"
+    android:weightSum="100"
     tools:context=".DescriptionDialog">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/description"
-        android:text="@string/hello_blank_fragment" />
-
-    <Button
-        android:id="@+id/closeButton"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_gravity="bottom"
-        android:onClick="close"
-        android:text="Close" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="Default Description"
+        android:layout_weight="25"
+        android:layout_marginTop="5dp"
+        android:layout_above="@+id/difficulty"
+        android:textAlignment="center" />
 
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/difficulty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="75"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+
+        android:text="Challenge Difficulty"
+        android:textAlignment="center" />
+
+    <!--    <Button-->
+<!--        android:id="@+id/closeButton"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:text="Close" />-->
+
+
+</LinearLayout>
