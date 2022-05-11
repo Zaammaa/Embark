@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity() {
         for(challenge in challengeList){
             createTableRow(challenge, table)
         }
+
+        var viewSwitcher: TopViewSwitcher = findViewById<TopViewSwitcher>(R.id.topViewSwitcher)
+        viewSwitcher.setupGame(challengeList,difficulty,this.gameTab)
     }
 
     fun createTableRow(challenge: Challenge,table: TableLayout){
