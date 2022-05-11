@@ -4,7 +4,7 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class Crew1TaskCardChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class BasicTaskCardsChallenge(numberOfPlayers: Int, difficulty: Int) : Crew1TaskCardsChallenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
 
     override val weight: Int
         get() = 100
@@ -20,8 +20,7 @@ class Crew1TaskCardChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(
         get() = false
     override val incompatibleWith: List<KClass<out Challenge>>
         get() =  mutableListOf<KClass<out Challenge>>(CommandersDecisionRevealedChallenge::class, CommandersDecisionSecretChallenge::class)
-
-    var tasks = 0
+    override var tasks: Int = 0
 
     // Difficulty mod is used to determine how quickly tasks get high modifiers
     // With 5 players, tasks 1-3 are 1 each, 4-6 are 2 each, 7+ are 3 each

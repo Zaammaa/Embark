@@ -3,7 +3,7 @@ package com.example.embark.Challenges
 import com.example.embark.R
 import kotlin.reflect.KClass
 
-class CommandersDecisionSecretChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class CommandersDecisionSecretChallenge(numberOfPlayers: Int, difficulty: Int) : Crew1TaskCardsChallenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
 
     override val weight: Int
         get() = 10
@@ -17,9 +17,8 @@ class CommandersDecisionSecretChallenge(numberOfPlayers: Int, difficulty: Int) :
     override val crew2Combatible: Boolean
         get() = false
     override val incompatibleWith: List<KClass<out Challenge>>
-        get() =  mutableListOf<KClass<out Challenge>>(CommandersDecisionRevealedChallenge::class, TaskPassesChallenge::class)
-
-    var tasks = 0
+        get() =  mutableListOf<KClass<out Challenge>>(CommandersDecisionRevealedChallenge::class, TaskPassesChallenge::class, BasicTaskCardsChallenge::class)
+    override var tasks: Int = 0
 
     override fun chooseChallenge(): Challenge {
         tasks = (challengeDifficulty / getDifficultyMod()).toInt()
@@ -33,8 +32,8 @@ class CommandersDecisionSecretChallenge(numberOfPlayers: Int, difficulty: Int) :
 
     override fun displayShortDescription(): String{
         if (tasks == 1) {
-            return "$tasks task to a crew member (secret)"
+            return "The $tasks task to a crew member (secret)"
         }
-            return "$tasks tasks to one crew member (secret)"
+            return "All $tasks tasks to one crew member (secret)"
     }
 }
