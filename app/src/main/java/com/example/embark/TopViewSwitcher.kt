@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.get
 import com.example.embark.Challenges.Challenge
+import com.example.embark.Challenges.Crew1TaskCardChallenge
 
 class TopViewSwitcher(context: Context, attrs: AttributeSet) : ViewSwitcher(context, attrs) {
 
@@ -48,8 +49,13 @@ class TopViewSwitcher(context: Context, attrs: AttributeSet) : ViewSwitcher(cont
         } else {
             difficultyDisplayPlanetNine.visibility = View.VISIBLE
             difficultyDisplayDeepSea.visibility = View.INVISIBLE
-            //TODO change to task cards
-            difficultyDisplayPlanetNine.text = effectiveDifficulty.toString()
+
+            var taskChallenge: List<Crew1TaskCardChallenge> = challenges.filter { it::class == Crew1TaskCardChallenge::class } as List<Crew1TaskCardChallenge>
+            if (taskChallenge.size == 0) {
+                difficultyDisplayPlanetNine.text = "0"
+            } else {
+                difficultyDisplayPlanetNine.text = taskChallenge[0].tasks.toString()
+            }
         }
 
         this.showNext()
