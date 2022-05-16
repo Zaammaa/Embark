@@ -3,6 +3,7 @@ package com.example.embark
 import com.example.embark.Challenges.*
 import kotlin.random.Random
 import kotlin.reflect.KClass
+import kotlin.reflect.full.isSubclassOf
 
 
 class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
@@ -37,12 +38,24 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
 
     fun generate(): MutableList<Challenge>{
         var challengeList: MutableList<Challenge> = mutableListOf<Challenge>()
+        var chosenChallenges: MutableList<Challenge> = mutableListOf<Challenge>()
         if (game == "planet nine"){
             allChallenges.forEach {
                 var challenge: Challenge = it.constructors.first().call(playerCount,difficulty)
                 if (challenge.crew1Combatible){
                     challengeList.add(challenge)
                 }
+            }
+            chosenChallenges = chooseChallenges(challengeList)
+
+            // If no task challenge was selected, use the base one with remaining difficulty
+            if (chosenChallenges.filter { it::class.isSubclassOf(Crew1TaskCardsChallenge::class) }.isEmpty()) {
+                var effectiveDifficulty = difficulty
+                for(challenge: Challenge in chosenChallenges){
+                    effectiveDifficulty -= challenge.challengeDifficulty
+                }
+                var challenge = BasicTaskCardsChallenge(playerCount, effectiveDifficulty)
+                chosenChallenges.add(challenge.chooseChallenge())
             }
         } else if(game == "deep sea") {
             allChallenges.forEach {
@@ -51,8 +64,9 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
                     challengeList.add(challenge)
                 }
             }
+            chosenChallenges = chooseChallenges(challengeList)
         }
-        return chooseChallenges((challengeList))
+        return chosenChallenges
     }
 
     private fun chooseChallenges(challengeList: MutableList<Challenge>): MutableList<Challenge>{

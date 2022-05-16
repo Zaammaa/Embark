@@ -1,14 +1,14 @@
 package com.example.embark
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.get
 import com.example.embark.Challenges.Challenge
+import com.example.embark.Challenges.Crew1TaskCardsChallenge
+import kotlin.reflect.full.isSubclassOf
 
 class TopViewSwitcher(context: Context, attrs: AttributeSet) : ViewSwitcher(context, attrs) {
 
@@ -32,24 +32,28 @@ class TopViewSwitcher(context: Context, attrs: AttributeSet) : ViewSwitcher(cont
     }
 
     fun setupGame(challenges: List<Challenge>, baseDifficulty: Int, gameMode: String){
-        var effectiveDifficulty = baseDifficulty
-        for(challenge: Challenge in challenges){
-            effectiveDifficulty -= challenge.challengeDifficulty
-        }
-
         var gameView: View = this[1]
         var difficultyDisplayDeepSea: TextView = gameView.findViewById(R.id.difficultyLevelDeepSea)
         var difficultyDisplayPlanetNine: TextView = gameView.findViewById(R.id.difficultyLevelPlanetNine)
 
         if (gameMode == "deep sea"){
+            var effectiveDifficulty = baseDifficulty
+            for(challenge: Challenge in challenges){
+                effectiveDifficulty -= challenge.challengeDifficulty
+            }
             difficultyDisplayPlanetNine.visibility = View.INVISIBLE
             difficultyDisplayDeepSea.visibility = View.VISIBLE
             difficultyDisplayDeepSea.text = effectiveDifficulty.toString()
         } else {
             difficultyDisplayPlanetNine.visibility = View.VISIBLE
             difficultyDisplayDeepSea.visibility = View.INVISIBLE
-            //TODO change to task cards
-            difficultyDisplayPlanetNine.text = effectiveDifficulty.toString()
+
+            var taskChallenge: List<Crew1TaskCardsChallenge> = challenges.filter { it::class.isSubclassOf(Crew1TaskCardsChallenge::class) } as List<Crew1TaskCardsChallenge>
+            if (taskChallenge.isEmpty()) {
+                difficultyDisplayPlanetNine.text = "0"
+            } else {
+                difficultyDisplayPlanetNine.text = taskChallenge[0].tasks.toString()
+            }
         }
 
         this.showNext()
