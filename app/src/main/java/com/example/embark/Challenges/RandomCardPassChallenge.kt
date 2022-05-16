@@ -18,8 +18,6 @@ class RandomCardPassChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge
         get() = true
     override val crew2Combatible: Boolean
         get() = false
-    override val incompatibleWith: List<KClass<out Challenge>>
-        get() =  mutableListOf<KClass<out Challenge>>()
 
     var direction = ""
 
