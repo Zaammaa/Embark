@@ -16,8 +16,6 @@ class UnorderedCommunicationChallenge(numberOfPlayers: Int, difficulty: Int) : C
         get() = true
     override val crew2Combatible: Boolean
         get() = true
-    override val incompatibleWith: List<KClass<out Challenge>>
-        get() =  mutableListOf<KClass<out Challenge>>()
 
     override fun chooseChallenge(): Challenge {
         challengeDifficulty = getDifficultyMod()

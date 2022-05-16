@@ -16,8 +16,6 @@ class CommandersDecisionSecretChallenge(numberOfPlayers: Int, difficulty: Int) :
         get() = true
     override val crew2Combatible: Boolean
         get() = false
-    override val incompatibleWith: List<KClass<out Challenge>>
-        get() =  mutableListOf<KClass<out Challenge>>(CommandersDecisionRevealedChallenge::class, TaskPassesChallenge::class, BasicTaskCardsChallenge::class)
     override var tasks: Int = 0
 
     override fun chooseChallenge(): Challenge {

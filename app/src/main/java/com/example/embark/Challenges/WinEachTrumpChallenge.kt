@@ -18,8 +18,6 @@ class WinEachTrumpChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(n
         get() = true
     override val crew2Combatible: Boolean
         get() = false
-    override val incompatibleWith: List<KClass<out Challenge>>
-        get() =  mutableListOf<KClass<out Challenge>>()
 
     var order = ""
 

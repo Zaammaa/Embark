@@ -24,7 +24,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         CommunicationPassesChallenge::class,
         FewerCommunicationTokensChallenge::class,
         CommanderIsSkippedChallenge::class,
-        FirstTurnCommunication::class,
+        FirstTurnCommunicationChallenge::class,
         RandomCardPassChallenge::class,
         WinEachTrumpChallenge::class,
         NoNinesChallenge::class,
@@ -98,18 +98,15 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
                     break
                 }
             }
-            currentChallengeOptions = selectApplicableChallenges(currentList, challengeList)
+            currentChallengeOptions = selectApplicableChallenges(currentList.last(), challengeList)
         }
         //Sort makes it so the challenges usually appear in a similar order in the UI
         currentList.sortByDescending { it.weight }
         return currentList
     }
     //after picking a challenge, this function ensures the list of available options no longer includes itself or incompatible challenges
-    private fun selectApplicableChallenges(currentList: MutableList<Challenge>, currentChallengeOptions: MutableList<Challenge>): MutableList<Challenge>{
-        for(challenge: Challenge in currentList){
-            //Check that challenges aren't incompatible with each other
-            currentChallengeOptions.removeAll(currentChallengeOptions.filter{ challenge::class == it::class || it.incompatibleWith.contains(challenge::class) || challenge.incompatibleWith.contains(it::class) })
-        }
+    private fun selectApplicableChallenges(newChallenge: Challenge, currentChallengeOptions: MutableList<Challenge>): MutableList<Challenge>{
+        currentChallengeOptions.removeAll(currentChallengeOptions.filter{ newChallenge::class == it::class || ChallengeIncompatibilityTable.incompatible(it::class,newChallenge::class) })
         return currentChallengeOptions
     }
 

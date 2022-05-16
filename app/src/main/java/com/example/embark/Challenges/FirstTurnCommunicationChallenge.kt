@@ -4,7 +4,7 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class FirstTurnCommunication(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class FirstTurnCommunicationChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
     override val weight: Int
         get() = 10
     override val difficultyMod: Array<Int>
@@ -17,8 +17,6 @@ class FirstTurnCommunication(numberOfPlayers: Int, difficulty: Int) : Challenge(
         get() = true
     override val crew2Combatible: Boolean
         get() = true
-    override val incompatibleWith: List<KClass<out Challenge>>
-        get() =  mutableListOf<KClass<out Challenge>>(DisruptedCommunicateChallenge::class)
 
     override fun chooseChallenge(): Challenge {
         challengeDifficulty = getDifficultyMod()

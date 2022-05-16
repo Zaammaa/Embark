@@ -17,8 +17,6 @@ class CommunicationPassesChallenge(numberOfPlayers: Int, difficulty: Int) : Chal
         get() = true
     override val crew2Combatible: Boolean
         get() = true
-    override val incompatibleWith: List<KClass<out Challenge>>
-        get() =  mutableListOf<KClass<out Challenge>>(FewerCommunicationTokensChallenge::class)
 
     var passes = 1
     override fun chooseChallenge(): Challenge {
