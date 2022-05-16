@@ -24,8 +24,6 @@ abstract sealed class Challenge(numberOfPlayers: Int, difficulty: Int) {
     //compatibility: which versions of crew the challenge can be used with
     abstract val crew1Combatible: Boolean
     abstract val crew2Combatible: Boolean
-    //incompatibleWith: list of other challenges the challenge is incompatible with
-    abstract val incompatibleWith: List<KClass<out Challenge>>
 
     init {
         challengeDifficulty = difficulty

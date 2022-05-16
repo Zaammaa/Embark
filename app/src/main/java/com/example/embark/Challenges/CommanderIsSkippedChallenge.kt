@@ -16,8 +16,6 @@ class CommanderIsSkippedChallenge(numberOfPlayers: Int, difficulty: Int) : Chall
         get() = true
     override val crew2Combatible: Boolean
         get() = true
-    override val incompatibleWith: List<KClass<out Challenge>>
-        get() =  mutableListOf<KClass<out Challenge>>(CommandersDecisionRevealedChallenge::class, CommandersDecisionSecretChallenge::class)
 
     override fun chooseChallenge(): Challenge {
         challengeDifficulty = getDifficultyMod()
