@@ -27,7 +27,10 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         FirstTurnCommunication::class,
         RandomCardPassChallenge::class,
         WinEachTrumpChallenge::class,
-        NoNinesChallenge::class
+        NoNinesChallenge::class,
+        UnorderedTokensChallenge::class,
+        OrderedTokensChallenge::class,
+        OmegaTokenChallenge::class
     )
 
     init{
