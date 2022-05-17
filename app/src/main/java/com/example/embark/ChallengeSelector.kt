@@ -119,11 +119,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         return currentList
     }
     //after picking a challenge, this function ensures the list of available options no longer includes itself or incompatible challenges
-<<<<<<< HEAD
-    private fun selectApplicableChallenges(newChallenge: Challenge, currentChallengeOptions: MutableList<Challenge>): MutableList<Challenge>{
-=======
     private fun filterIncompatibleChallenges(newChallenge: Challenge, currentChallengeOptions: MutableList<Challenge>): MutableList<Challenge>{
->>>>>>> master
         currentChallengeOptions.removeAll(currentChallengeOptions.filter{ newChallenge::class == it::class || ChallengeIncompatibilityTable.incompatible(it::class,newChallenge::class) })
         return currentChallengeOptions
     }

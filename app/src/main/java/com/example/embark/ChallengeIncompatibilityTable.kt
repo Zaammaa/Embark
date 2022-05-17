@@ -9,6 +9,7 @@ class ChallengeIncompatibilityTable {
             //Task cards
             Pair(CommandersDecisionRevealedChallenge::class, BasicTaskCardsChallenge::class),
             Pair(CommandersDecisionSecretChallenge::class, BasicTaskCardsChallenge::class),
+            Pair(TaskPassesChallenge::class,CommandersDecisionRevealedChallenge::class),
             Pair(TaskPassesChallenge::class,CommandersDecisionSecretChallenge::class),
             Pair(CommandersDecisionSecretChallenge::class, CommandersDecisionRevealedChallenge::class),
 
