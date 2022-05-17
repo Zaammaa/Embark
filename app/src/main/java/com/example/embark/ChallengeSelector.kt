@@ -10,6 +10,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
     var difficulty = 0
     var playerCount = 0
     var game = ""
+    var minimumDifficulty = 2
 
     //We'll re-enable this if the Kotlin bug is fixed
     //private val allChallenges: List<KClass<out Challenge>> = Challenge::class.sealedSubclasses
@@ -37,6 +38,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         this.difficulty = difficulty
         this.playerCount = playerCount
         this.game = game
+        this.minimumDifficulty = Math.min(difficulty,minimumDifficulty)
     }
 
     fun generate(): MutableList<Challenge>{
@@ -77,6 +79,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         var numberOfChallenges: Int = Random.nextInt(4) + 1
         var currentList: MutableList<Challenge> = mutableListOf<Challenge>()
         var currentChallengeOptions = challengeList
+        var currentDifficulty = difficulty
 
         while(currentList.count() < numberOfChallenges && currentChallengeOptions.count() > 0){
             var totalWeight: Int = 0
@@ -86,26 +89,41 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             //Choose a value between 0 and total weight
             var targetWeight = Random.nextInt(totalWeight)
             var i = 0
+            var chosenChallenge: Challenge? = null
             //Cycle through the list until the total values ov the list match the chosen target
             while(targetWeight >= 0){
                 if (targetWeight > currentChallengeOptions[i].weight){
                     targetWeight -= currentChallengeOptions[i].weight
                     i++
                 } else {
-                    var challenge: Challenge = currentChallengeOptions[i]
-                    challenge.chooseChallenge()
-                    currentList.add (challenge)
+                    chosenChallenge = currentChallengeOptions[i]
+                    chosenChallenge.chooseChallenge()
                     break
                 }
             }
-            currentChallengeOptions = selectApplicableChallenges(currentList.last(), challengeList)
+            if (chosenChallenge == null){
+                throw Exception("No challenge chosen unexpectedly")
+            }
+            if (currentDifficulty - chosenChallenge.challengeDifficulty >= this.minimumDifficulty){
+                currentDifficulty -= chosenChallenge.challengeDifficulty
+                currentList.add (chosenChallenge)
+                currentChallengeOptions = filterIncompatibleChallenges(chosenChallenge, currentChallengeOptions)
+            } else {
+                currentChallengeOptions.remove(chosenChallenge)
+                continue
+            }
+
         }
         //Sort makes it so the challenges usually appear in a similar order in the UI
         currentList.sortByDescending { it.weight }
         return currentList
     }
     //after picking a challenge, this function ensures the list of available options no longer includes itself or incompatible challenges
+<<<<<<< HEAD
     private fun selectApplicableChallenges(newChallenge: Challenge, currentChallengeOptions: MutableList<Challenge>): MutableList<Challenge>{
+=======
+    private fun filterIncompatibleChallenges(newChallenge: Challenge, currentChallengeOptions: MutableList<Challenge>): MutableList<Challenge>{
+>>>>>>> master
         currentChallengeOptions.removeAll(currentChallengeOptions.filter{ newChallenge::class == it::class || ChallengeIncompatibilityTable.incompatible(it::class,newChallenge::class) })
         return currentChallengeOptions
     }
