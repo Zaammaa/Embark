@@ -17,8 +17,6 @@ class OmegaTokenChallenge(numberOfPlayers: Int, difficulty: Int) : Crew1TokensCh
         get() = true
     override val crew2Combatible: Boolean
         get() = false
-    override val incompatibleWith: List<KClass<out Challenge>>
-        get() =  mutableListOf<KClass<out Challenge>>(CommandersDecisionRevealedChallenge::class, CommandersDecisionSecretChallenge::class)
     override var tokens = 1
     override var maxTokens = 1
     var type: String = ""

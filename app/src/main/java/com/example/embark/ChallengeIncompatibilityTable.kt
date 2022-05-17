@@ -10,6 +10,15 @@ class ChallengeIncompatibilityTable {
             Pair(CommandersDecisionRevealedChallenge::class, BasicTaskCardsChallenge::class),
             Pair(CommandersDecisionSecretChallenge::class, BasicTaskCardsChallenge::class),
             Pair(TaskPassesChallenge::class,CommandersDecisionSecretChallenge::class),
+            Pair(CommandersDecisionSecretChallenge::class, CommandersDecisionRevealedChallenge::class),
+
+            //Task card tokens
+            Pair(UnorderedTokensChallenge::class, CommandersDecisionSecretChallenge::class),
+            Pair(UnorderedTokensChallenge::class, CommandersDecisionRevealedChallenge::class),
+            Pair(OrderedTokensChallenge::class, CommandersDecisionSecretChallenge::class),
+            Pair(OrderedTokensChallenge::class, CommandersDecisionRevealedChallenge::class),
+            Pair(OmegaTokenChallenge::class, CommandersDecisionSecretChallenge::class),
+            Pair(OmegaTokenChallenge::class, CommandersDecisionRevealedChallenge::class),
 
             //communication
             Pair(FewerCommunicationTokensChallenge::class, CommunicationPassesChallenge::class),
