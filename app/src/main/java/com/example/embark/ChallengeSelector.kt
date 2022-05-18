@@ -23,15 +23,20 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         UnorderedCommunicationChallenge::class,
         DisruptedCommunicateChallenge::class,
         CommunicationPassesChallenge::class,
+        UpdateCommunicationTokenChallenge::class,
         FewerCommunicationTokensChallenge::class,
         CommanderIsSkippedChallenge::class,
         FirstTurnCommunicationChallenge::class,
+        MidTurnCommunicationChallenge::class,
+        RandomPlayerCantCommunicateChallenge::class,
         RandomCardPassChallenge::class,
         WinEachTrumpChallenge::class,
         NoNinesChallenge::class,
         UnorderedTokensChallenge::class,
         OrderedTokensChallenge::class,
-        OmegaTokenChallenge::class
+        OmegaTokenChallenge::class,
+        CardDraftingChallenge::class,
+        BalanceTrickTakingChallenge::class,
     )
 
     init{
