@@ -14,6 +14,15 @@ class ChallengeIncompatibilityTable {
             //communication
             Pair(FewerCommunicationTokensChallenge::class, CommunicationPassesChallenge::class),
             Pair(DisruptedCommunicateChallenge::class, FirstTurnCommunicationChallenge::class),
+            Pair(UpdateCommunicationTokenChallenge::class, UnorderedCommunicationChallenge::class),
+
+            Pair(RandomPlayerCantCommunicateChallenge::class, FewerCommunicationTokensChallenge::class),
+            Pair(RandomPlayerCantCommunicateChallenge::class, CommunicationPassesChallenge::class),
+            Pair(RandomPlayerCantCommunicateChallenge::class, ChosenPlayerCantCommunicateChallenge::class),
+            Pair(ChosenPlayerCantCommunicateChallenge::class, CommunicationPassesChallenge::class),
+            Pair(ChosenPlayerCantCommunicateChallenge::class, FewerCommunicationTokensChallenge::class),
+
+            Pair(MidTurnCommunicationChallenge::class, FirstTurnCommunicationChallenge::class),
 
             //other
             Pair(CommanderIsSkippedChallenge::class,CommandersDecisionRevealedChallenge::class),
