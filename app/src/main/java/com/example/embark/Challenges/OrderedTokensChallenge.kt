@@ -22,7 +22,12 @@ class OrderedTokensChallenge(numberOfPlayers: Int, difficulty: Int) : Crew1Token
     override var maxTokens = 5
 
     override fun chooseChallenge(): Challenge {
-        tokens = 1 + Random.nextInt(maxTokens)
+        // Only randomize if tokens has not been set (appropriately)
+        if (tokens < 1) {
+            tokens = 1 + Random.nextInt(maxTokens)
+        } else if (tokens > maxTokens) {
+            tokens = maxTokens
+        }
         challengeDifficulty = getDifficultyMod() * tokens
         return this
     }
