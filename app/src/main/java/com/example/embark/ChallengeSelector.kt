@@ -32,6 +32,9 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         RandomCardPassChallenge::class,
         WinEachTrumpChallenge::class,
         NoNinesChallenge::class,
+        UnorderedTokensChallenge::class,
+        OrderedTokensChallenge::class,
+        OmegaTokenChallenge::class,
         CardDraftingChallenge::class,
         BalanceTrickTakingChallenge::class,
     )
@@ -57,12 +60,13 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
 
             // If no task challenge was selected, use the base one with remaining difficulty
             if (chosenChallenges.filter { it::class.isSubclassOf(Crew1TaskCardsChallenge::class) }.isEmpty()) {
-                var effectiveDifficulty = difficulty
-                for(challenge: Challenge in chosenChallenges){
-                    effectiveDifficulty -= challenge.challengeDifficulty
+                var tokenChallenges = (chosenChallenges.filter { it::class.isSubclassOf(Crew1TokensChallenge::class) } as List<Crew1TokensChallenge>).toMutableList()
+                if (!tokenChallenges.isEmpty()) {
+                    chosenChallenges = chooseBalancedTokensAndTasks(chosenChallenges, tokenChallenges)
+                } else {
+                    var taskChallenge = chooseBasicTaskCardChallenge(chosenChallenges)
+                    chosenChallenges.add(taskChallenge)
                 }
-                var challenge = BasicTaskCardsChallenge(playerCount, effectiveDifficulty)
-                chosenChallenges.add(challenge.chooseChallenge())
             }
         } else if(game == "deep sea") {
             allChallenges.forEach {
@@ -125,5 +129,82 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         currentChallengeOptions.removeAll(currentChallengeOptions.filter{ newChallenge::class == it::class || ChallengeIncompatibilityTable.incompatible(it::class,newChallenge::class) })
         return currentChallengeOptions
     }
-
+    fun getRemainingDifficulty(challenges: List<Challenge>): Int {
+        var remainingDifficulty = difficulty
+        for(challenge: Challenge in challenges){
+            remainingDifficulty -= challenge.challengeDifficulty
+        }
+        return remainingDifficulty
+    }
+    private fun chooseBasicTaskCardChallenge(chosenChallenges: List<Challenge>): BasicTaskCardsChallenge {
+        var remainingDifficulty = getRemainingDifficulty(chosenChallenges)
+        var taskChallenge = BasicTaskCardsChallenge(playerCount, remainingDifficulty).chooseChallenge()
+        return taskChallenge as BasicTaskCardsChallenge
+    }
+    private fun chooseBalancedTokensAndTasks(chosenChallenges: MutableList<Challenge>, tokenChallenges: MutableList<Crew1TokensChallenge>): MutableList<Challenge> {
+        var taskChallenge = chooseBasicTaskCardChallenge(chosenChallenges)
+        chosenChallenges.removeAll(tokenChallenges)
+        var tasks = taskChallenge.tasks
+        var tokens = sumTokens(tokenChallenges)
+        while (tasks < tokens) {
+            subtractToken(tokenChallenges)
+            tokens = sumTokens(tokenChallenges)
+            tasks = chooseBasicTaskCardChallenge(chosenChallenges + tokenChallenges).tasks
+        }
+        var unordered = tokenChallenges.filter { it::class == UnorderedTokensChallenge::class }.isNotEmpty()
+        var orderedList = tokenChallenges.filter { it::class == OrderedTokensChallenge::class }
+        var ordered = orderedList.isNotEmpty()
+        var omega = tokenChallenges.filter { it::class == OmegaTokenChallenge::class } as List<OmegaTokenChallenge>
+        var omegaLast: Boolean = omega.isNotEmpty() && omega[0].type == "last"
+        // A singleton task with a token makes no sense
+        if (tasks == 1 && (ordered || omegaLast)) {
+            subtractToken(tokenChallenges)
+        }
+        // Unordered needs at least one card without a token
+        if (unordered) {
+            if (tasks == tokens) {
+                subtractToken(tokenChallenges)
+            }
+            // Without unordered tokens, one task card without a token when
+            // ordered/omega-last is in play is harder than difficulty says
+        } else if (tasks - 1 == tokens && (ordered || omegaLast)) {
+            subtractToken(tokenChallenges)
+        }
+        taskChallenge = chooseBasicTaskCardChallenge(chosenChallenges + tokenChallenges)
+        tasks = taskChallenge.tasks
+        tokens = sumTokens(tokenChallenges)
+        // When all cards have tokens, swap omega last for another ordered token if possible
+        if (tasks == tokens && ordered && omegaLast) {
+            var orderedTask = orderedList[0]
+            if (orderedTask.tokens <= 5) {
+                tokenChallenges.remove(orderedTask)
+                orderedTask.tokens += 1
+                orderedTask.chooseChallenge()
+                tokenChallenges.add(orderedTask)
+                tokenChallenges.remove(omega[0])
+            }
+        }
+        chosenChallenges.add(taskChallenge)
+        chosenChallenges.addAll(tokenChallenges)
+        return chosenChallenges
+    }
+    private fun sumTokens(tokenChallenges: List<Crew1TokensChallenge>): Int {
+        var tokens: Int = 0
+        for (tChallenge in tokenChallenges) {
+            tokens += tChallenge.tokens
+        }
+        return tokens
+    }
+    private fun subtractToken(tokenChallenges: MutableList<Crew1TokensChallenge>) {
+        var i = Random.nextInt(tokenChallenges.size)
+        var challenge = tokenChallenges[i] as Crew1TokensChallenge
+        tokenChallenges.remove(challenge)
+        // Return with challenge removed
+        if (challenge.tokens == 1 || (challenge::class == UnorderedTokensChallenge::class && challenge.tokens == 2)) {
+            return
+        }
+        challenge.tokens -= 1
+        challenge.chooseChallenge()
+        tokenChallenges.add(challenge)
+    }
 }
