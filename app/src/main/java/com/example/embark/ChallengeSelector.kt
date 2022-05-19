@@ -29,6 +29,8 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         FirstTurnCommunicationChallenge::class,
         MidTurnCommunicationChallenge::class,
         RandomPlayerCantCommunicateChallenge::class,
+        ChosenPlayerCantCommunicateChallenge::class,
+        TrumpMayBeCommunicatedChallenge::class,
         RandomCardPassChallenge::class,
         WinEachTrumpChallenge::class,
         NoNinesChallenge::class,
@@ -37,6 +39,9 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         OmegaTokenChallenge::class,
         CardDraftingChallenge::class,
         BalanceTrickTakingChallenge::class,
+        JesterTrumpChallenge::class,
+        WildTrumpChallenge::class,
+        CardDoneLastChallenge::class,
     )
 
     init{
@@ -51,8 +56,8 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         var chosenChallenges: MutableList<Challenge> = mutableListOf<Challenge>()
         if (game == "planet nine"){
             allChallenges.forEach {
-                var challenge: Challenge = it.constructors.first().call(playerCount,difficulty)
-                if (challenge.crew1Combatible){
+                var challenge: Challenge = it.constructors.first().call(playerCount,difficulty,game)
+                if (challenge.crew1Compatible){
                     challengeList.add(challenge)
                 }
             }
@@ -70,8 +75,8 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             }
         } else if(game == "deep sea") {
             allChallenges.forEach {
-                var challenge: Challenge = it.constructors.first().call(playerCount,difficulty)
-                if (challenge.crew2Combatible){
+                var challenge: Challenge = it.constructors.first().call(playerCount,difficulty,game)
+                if (challenge.crew2Compatible){
                     challengeList.add(challenge)
                 }
             }
@@ -138,7 +143,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
     }
     private fun chooseBasicTaskCardChallenge(chosenChallenges: List<Challenge>): BasicTaskCardsChallenge {
         var remainingDifficulty = getRemainingDifficulty(chosenChallenges)
-        var taskChallenge = BasicTaskCardsChallenge(playerCount, remainingDifficulty).chooseChallenge()
+        var taskChallenge = BasicTaskCardsChallenge(playerCount, remainingDifficulty,game).chooseChallenge()
         return taskChallenge as BasicTaskCardsChallenge
     }
     private fun chooseBalancedTokensAndTasks(chosenChallenges: MutableList<Challenge>, tokenChallenges: MutableList<Crew1TokensChallenge>): MutableList<Challenge> {

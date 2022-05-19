@@ -2,7 +2,7 @@ package com.example.embark.Challenges
 
 import com.example.embark.R
 
-class MidTurnCommunicationChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class MidTurnCommunicationChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
     override val weight: Int
         get() = 5
     override val difficultyMod: Array<Int>
@@ -11,10 +11,14 @@ class MidTurnCommunicationChallenge(numberOfPlayers: Int, difficulty: Int) : Cha
         get() = "Players can communicate mid trick"
     override var icon: Int = R.drawable.mid_trick_communication
 
-    override val crew1Combatible: Boolean
+    override val crew1Compatible: Boolean
         get() = true
-    override val crew2Combatible: Boolean
+    override val crew2Compatible: Boolean
         get() = true
+
+    init {
+        tags.add(TagOptions.Communication)
+    }
 
     override fun chooseChallenge(): Challenge {
         challengeDifficulty = getDifficultyMod()

@@ -4,7 +4,7 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class DisruptedCommunicateChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class DisruptedCommunicateChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
     override val weight: Int
         get() = 20
     override val difficultyMod: Array<Int>
@@ -13,12 +13,16 @@ class DisruptedCommunicateChallenge(numberOfPlayers: Int, difficulty: Int) : Cha
         get() = "Players cannot use communication tokens until after a certain number of tricks have been taken"
     override var icon: Int = R.drawable.communication_down_1
 
-    override val crew1Combatible: Boolean
+    override val crew1Compatible: Boolean
         get() = true
-    override val crew2Combatible: Boolean
+    override val crew2Compatible: Boolean
         get() = true
 
     var turns = 1
+
+    init {
+        tags.add(TagOptions.Communication)
+    }
 
     override fun chooseChallenge(): Challenge {
         turns = Random.nextInt(4) + 1

@@ -1,25 +1,20 @@
 package com.example.embark.Challenges
 
 import com.example.embark.R
-import kotlin.reflect.KClass
 
-class UnorderedCommunicationChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
-
+class JesterTrumpChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
     override val weight: Int
-        get() = 20
+        get() = 5
     override val difficultyMod: Array<Int>
-        get() = arrayOf(1,1,1)
+        get() = arrayOf(-2,-2,-2)
     override val description: String
-        get() = "Communication tokens cannot be used to show the position of cards in hand"
-    override var icon: Int = R.drawable.unordered_communication
+        get() = "${GameSpecificNames.trump} cards no longer function as trump, but may be played at any time even to not follow suit. Leading a trump card behaves normally"
+    override var icon: Int = R.drawable.jester
+
     override val crew1Compatible: Boolean
         get() = true
     override val crew2Compatible: Boolean
         get() = true
-
-    init {
-        tags.add(TagOptions.Communication)
-    }
 
     override fun chooseChallenge(): Challenge {
         challengeDifficulty = getDifficultyMod()
@@ -31,6 +26,6 @@ class UnorderedCommunicationChallenge(numberOfPlayers: Int, difficulty: Int, gam
     }
 
     override fun displayShortDescription(): String{
-        return "Unordered Communication"
+        return "${GameSpecificNames.trump} cards are no longer trump, but can be played at any time"
     }
 }

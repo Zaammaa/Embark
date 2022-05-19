@@ -4,7 +4,7 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class NoNinesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class NoNinesChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
 
     override val weight: Int
         get() = 9
@@ -14,9 +14,9 @@ class NoNinesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(number
         get() = "No trick may be won using a 9"
     override var icon: Int = R.drawable.nines
 
-    override val crew1Combatible: Boolean
+    override val crew1Compatible: Boolean
         get() = true
-    override val crew2Combatible: Boolean
+    override val crew2Compatible: Boolean
         get() = true
 
     override fun chooseChallenge(): Challenge {

@@ -4,7 +4,7 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class FirstTurnCommunicationChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class FirstTurnCommunicationChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
     override val weight: Int
         get() = 10
     override val difficultyMod: Array<Int>
@@ -13,10 +13,14 @@ class FirstTurnCommunicationChallenge(numberOfPlayers: Int, difficulty: Int) : C
         get() = "All communication must be done before the first trick"
     override var icon: Int = R.drawable.communication_token_disabled
 
-    override val crew1Combatible: Boolean
+    override val crew1Compatible: Boolean
         get() = true
-    override val crew2Combatible: Boolean
+    override val crew2Compatible: Boolean
         get() = true
+
+    init {
+        tags.add(TagOptions.Communication)
+    }
 
     override fun chooseChallenge(): Challenge {
         challengeDifficulty = getDifficultyMod()

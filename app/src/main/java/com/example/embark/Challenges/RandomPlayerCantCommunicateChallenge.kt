@@ -3,21 +3,25 @@ package com.example.embark.Challenges
 import com.example.embark.R
 import kotlin.random.Random
 
-class RandomPlayerCantCommunicateChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class RandomPlayerCantCommunicateChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
     override val weight: Int
         get() = 10
     override val difficultyMod: Array<Int>
         get() = arrayOf(3,2,2)
     override val description: String
-        get() = "The chosen player (Counted clockwise from the captain) cannot communicate"
+        get() = "The chosen player (Counted clockwise from the ${GameSpecificNames.captain}) cannot communicate"
     override var icon: Int = R.drawable.player_cant_communicate
 
-    override val crew1Combatible: Boolean
+    override val crew1Compatible: Boolean
         get() = true
-    override val crew2Combatible: Boolean
+    override val crew2Compatible: Boolean
         get() = true
 
     var player = 1
+
+    init {
+        tags.add(TagOptions.Communication)
+    }
 
     override fun chooseChallenge(): Challenge {
         challengeDifficulty = getDifficultyMod()
