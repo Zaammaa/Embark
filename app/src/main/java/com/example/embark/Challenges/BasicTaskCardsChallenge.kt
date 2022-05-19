@@ -4,7 +4,7 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class BasicTaskCardsChallenge(numberOfPlayers: Int, difficulty: Int) : Crew1TaskCardsChallenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class BasicTaskCardsChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Crew1TaskCardsChallenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, game = game) {
 
     override val weight: Int
         get() = 100
@@ -14,9 +14,9 @@ class BasicTaskCardsChallenge(numberOfPlayers: Int, difficulty: Int) : Crew1Task
         get() = "Draw given number of task cards"
     override var icon: Int = R.drawable.card_back
 
-    override val crew1Combatible: Boolean
+    override val crew1Compatible: Boolean
         get() = true
-    override val crew2Combatible: Boolean
+    override val crew2Compatible: Boolean
         get() = false
     override var tasks: Int = 0
 

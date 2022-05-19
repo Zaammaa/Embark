@@ -4,7 +4,7 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class OmegaTokenChallenge(numberOfPlayers: Int, difficulty: Int) : Crew1TokensChallenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class OmegaTokenChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Crew1TokensChallenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, game = game) {
     override val weight: Int
         get() = 10
     override val difficultyMod: Array<Int>
@@ -13,9 +13,9 @@ class OmegaTokenChallenge(numberOfPlayers: Int, difficulty: Int) : Crew1TokensCh
         get() = "Place token onto the last task card drawn.  This task must be taken "
     override var icon: Int = R.drawable.last_task
 
-    override val crew1Combatible: Boolean
+    override val crew1Compatible: Boolean
         get() = true
-    override val crew2Combatible: Boolean
+    override val crew2Compatible: Boolean
         get() = false
     override var tokens = 1
     override var maxTokens = 1

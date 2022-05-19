@@ -3,7 +3,7 @@ package com.example.embark.Challenges
 import com.example.embark.R
 import kotlin.reflect.KClass
 
-class CommandersDecisionRevealedChallenge(numberOfPlayers: Int, difficulty: Int) : Crew1TaskCardsChallenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class CommandersDecisionRevealedChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Crew1TaskCardsChallenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, game = game) {
 
     override val weight: Int
         get() = 20
@@ -12,9 +12,9 @@ class CommandersDecisionRevealedChallenge(numberOfPlayers: Int, difficulty: Int)
     override val description: String
         get() = "With tasks face-down, commander asks each crew member 'yes' or 'no' if they can take all the tasks. Once the commander decides, reveal all the task cards"
     override var icon: Int = R.drawable.commanders_decision
-    override val crew1Combatible: Boolean
+    override val crew1Compatible: Boolean
         get() = true
-    override val crew2Combatible: Boolean
+    override val crew2Compatible: Boolean
         get() = false
     override var tasks: Int = 0
 

@@ -4,7 +4,7 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class RandomCardPassChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class RandomCardPassChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
 
     override val weight: Int
         get() = 5
@@ -14,9 +14,9 @@ class RandomCardPassChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge
         get() = "After the first trick, each player must draw a card randomly from another player's hand"
     override var icon: Int = R.drawable.card_back
 
-    override val crew1Combatible: Boolean
+    override val crew1Compatible: Boolean
         get() = true
-    override val crew2Combatible: Boolean
+    override val crew2Compatible: Boolean
         get() = false
 
     var direction = ""

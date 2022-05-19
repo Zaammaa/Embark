@@ -37,6 +37,7 @@ class ChallengeIncompatibilityTable {
             //other
             Pair(CommanderIsSkippedChallenge::class,CommandersDecisionRevealedChallenge::class),
             Pair(CommanderIsSkippedChallenge::class,CommandersDecisionSecretChallenge::class),
+            Pair(JesterTrumpChallenge::class,WinEachTrumpChallenge::class),
         )
 
         //returns true if the challenges are incompatible, false otherwise

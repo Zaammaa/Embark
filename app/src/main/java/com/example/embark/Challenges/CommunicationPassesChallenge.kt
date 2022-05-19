@@ -4,7 +4,7 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class CommunicationPassesChallenge(numberOfPlayers: Int, difficulty: Int) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class CommunicationPassesChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
     override val weight: Int
         get() = 20
     override val difficultyMod: Array<Int>
@@ -13,12 +13,17 @@ class CommunicationPassesChallenge(numberOfPlayers: Int, difficulty: Int) : Chal
         get() = "Players can pass a communication token after all tasks are selected"
     override var icon: Int = R.drawable.communication_token_pass
 
-    override val crew1Combatible: Boolean
+    override val crew1Compatible: Boolean
         get() = true
-    override val crew2Combatible: Boolean
+    override val crew2Compatible: Boolean
         get() = true
 
     var passes = 1
+
+    init {
+        tags.add(TagOptions.Communication)
+    }
+
     override fun chooseChallenge(): Challenge {
         challengeDifficulty = getDifficultyMod()
         if (Random.nextInt(100) > 85){

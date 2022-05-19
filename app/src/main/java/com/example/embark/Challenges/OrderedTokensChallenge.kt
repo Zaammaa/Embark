@@ -4,7 +4,7 @@ import com.example.embark.R
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
-class OrderedTokensChallenge(numberOfPlayers: Int, difficulty: Int) : Crew1TokensChallenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty) {
+class OrderedTokensChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Crew1TokensChallenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, game = game) {
 
     override val weight: Int
         get() = 30
@@ -14,9 +14,9 @@ class OrderedTokensChallenge(numberOfPlayers: Int, difficulty: Int) : Crew1Token
         get() = "Place given tokens onto task cards as they are drawn.  These tasks must be taken strictly in order and before any other token types"
     override var icon: Int = R.drawable.ordered_tasks_1
 
-    override val crew1Combatible: Boolean
+    override val crew1Compatible: Boolean
         get() = true
-    override val crew2Combatible: Boolean
+    override val crew2Compatible: Boolean
         get() = false
     override var tokens = 0
     override var maxTokens = 5
