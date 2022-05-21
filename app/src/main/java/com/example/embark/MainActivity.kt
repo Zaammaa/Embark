@@ -5,11 +5,9 @@ import android.view.Gravity
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.embark.Challenges.BasicTaskCardsChallenge
+import com.example.embark.Challenges.TaskCardGeneration.BasicTaskCardsChallenge
 import com.example.embark.Challenges.Challenge
-import com.example.embark.Challenges.Crew1TaskCardsChallenge
 import com.google.android.material.tabs.TabLayout
-import kotlin.reflect.full.isSubclassOf
 
 class MainActivity : AppCompatActivity() {
     var gameTab = "planet nine"

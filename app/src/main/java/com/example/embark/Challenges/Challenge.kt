@@ -6,7 +6,7 @@ import kotlin.random.Random
 //Most tasks make increase the difficulty, but some decrease it. After all the modifiers have been generated, the app subtracts them from the difficulty and uses that for the effective difficulty
 
 //This is the base class for challenges. Other challenges should be subclasses of this.
-abstract sealed class Challenge(numberOfPlayers: Int, difficulty: Int, gameMode: String) {
+abstract class Challenge(numberOfPlayers: Int, difficulty: Int, gameMode: String) {
     //Weight: This is how common the modifier is. The higher the weight, the bigger chance it gets chosen by the ChallengeSelector class
     abstract val weight: Int
     //difficultyMod: This is how challenging the challenge is for each player count

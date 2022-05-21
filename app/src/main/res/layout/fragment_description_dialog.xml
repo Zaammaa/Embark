@@ -17,6 +17,8 @@
         android:text="Default Description"
         android:layout_weight="25"
         android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_above="@+id/difficulty"
         android:textAlignment="center" />
 

@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.*
 import androidx.core.view.get
 import com.example.embark.Challenges.Challenge
-import com.example.embark.Challenges.Crew1TaskCardsChallenge
+import com.example.embark.Challenges.TaskCardGeneration.Crew1TaskCardsChallenge
 import kotlin.reflect.full.isSubclassOf
 
 class TopViewSwitcher(context: Context, attrs: AttributeSet) : ViewSwitcher(context, attrs) {
