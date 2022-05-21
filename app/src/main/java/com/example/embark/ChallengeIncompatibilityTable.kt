@@ -1,6 +1,18 @@
 package com.example.embark
 
 import com.example.embark.Challenges.*
+import com.example.embark.Challenges.Communication.*
+import com.example.embark.Challenges.Gameplay.FirstTrickPoolChallenge
+import com.example.embark.Challenges.Gameplay.JesterTrumpChallenge
+import com.example.embark.Challenges.Gameplay.WinEachTrumpChallenge
+import com.example.embark.Challenges.TaskCardGeneration.BasicTaskCardsChallenge
+import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionRevealedChallenge
+import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionSecretChallenge
+import com.example.embark.Challenges.TaskCardSelection.CommanderIsSkippedChallenge
+import com.example.embark.Challenges.TaskCardSelection.TaskPassesChallenge
+import com.example.embark.Challenges.TaskTokens.OmegaTokenChallenge
+import com.example.embark.Challenges.TaskTokens.OrderedTokensChallenge
+import com.example.embark.Challenges.TaskTokens.UnorderedTokensChallenge
 import kotlin.reflect.KClass
 
 class ChallengeIncompatibilityTable {
@@ -9,8 +21,8 @@ class ChallengeIncompatibilityTable {
             //Task cards
             Pair(CommandersDecisionRevealedChallenge::class, BasicTaskCardsChallenge::class),
             Pair(CommandersDecisionSecretChallenge::class, BasicTaskCardsChallenge::class),
-            Pair(TaskPassesChallenge::class,CommandersDecisionRevealedChallenge::class),
-            Pair(TaskPassesChallenge::class,CommandersDecisionSecretChallenge::class),
+            Pair(TaskPassesChallenge::class, CommandersDecisionRevealedChallenge::class),
+            Pair(TaskPassesChallenge::class, CommandersDecisionSecretChallenge::class),
             Pair(CommandersDecisionSecretChallenge::class, CommandersDecisionRevealedChallenge::class),
 
             //Task card tokens
@@ -33,11 +45,24 @@ class ChallengeIncompatibilityTable {
             Pair(ChosenPlayerCantCommunicateChallenge::class, FewerCommunicationTokensChallenge::class),
 
             Pair(MidTurnCommunicationChallenge::class, FirstTurnCommunicationChallenge::class),
+            Pair(PassingForCommunicationChallenge::class, UnorderedCommunicationChallenge::class),
+            Pair(WinCommunicationByTasksChallenge::class, WinCommunicationByTricksChallenge::class),
+
+            Pair(DiscardByCommunicationTokenChallenge::class, PassingForCommunicationChallenge::class),
+            Pair(DiscardByCommunicationTokenChallenge::class, TrumpMayBeCommunicatedChallenge::class),
+            Pair(DiscardByCommunicationTokenChallenge::class, UnorderedCommunicationChallenge::class),
+            Pair(DiscardByCommunicationTokenChallenge::class, UpdateCommunicationTokenChallenge::class),
+
+            Pair(FirstTrickPoolChallenge::class, DiscardByCommunicationTokenChallenge::class),
+            Pair(FirstTrickPoolChallenge::class, UpdateCommunicationTokenChallenge::class),
+            Pair(FirstTrickPoolChallenge::class, PassingForCommunicationChallenge::class),
+            Pair(FirstTrickPoolChallenge::class, TrumpMayBeCommunicatedChallenge::class),
+            Pair(FirstTrickPoolChallenge::class, UnorderedCommunicationChallenge::class),
 
             //other
-            Pair(CommanderIsSkippedChallenge::class,CommandersDecisionRevealedChallenge::class),
-            Pair(CommanderIsSkippedChallenge::class,CommandersDecisionSecretChallenge::class),
-            Pair(JesterTrumpChallenge::class,WinEachTrumpChallenge::class),
+            Pair(CommanderIsSkippedChallenge::class, CommandersDecisionRevealedChallenge::class),
+            Pair(CommanderIsSkippedChallenge::class, CommandersDecisionSecretChallenge::class),
+            Pair(JesterTrumpChallenge::class, WinEachTrumpChallenge::class),
         )
 
         //returns true if the challenges are incompatible, false otherwise

@@ -1,6 +1,18 @@
 package com.example.embark
 
 import com.example.embark.Challenges.*
+import com.example.embark.Challenges.Communication.*
+import com.example.embark.Challenges.Gameplay.*
+import com.example.embark.Challenges.PreGame.CardDraftingChallenge
+import com.example.embark.Challenges.PreGame.CardPassesChallenge
+import com.example.embark.Challenges.PreGame.RandomCardPassChallenge
+import com.example.embark.Challenges.TaskCardGeneration.BasicTaskCardsChallenge
+import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionRevealedChallenge
+import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionSecretChallenge
+import com.example.embark.Challenges.TaskCardGeneration.Crew1TaskCardsChallenge
+import com.example.embark.Challenges.TaskCardSelection.CommanderIsSkippedChallenge
+import com.example.embark.Challenges.TaskCardSelection.TaskPassesChallenge
+import com.example.embark.Challenges.TaskTokens.*
 import kotlin.random.Random
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
@@ -11,6 +23,8 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
     var playerCount = 0
     var game = ""
     var minimumDifficulty = 2
+
+    val maxCommunicationChallenges = 2
 
     //We'll re-enable this if the Kotlin bug is fixed
     //private val allChallenges: List<KClass<out Challenge>> = Challenge::class.sealedSubclasses
@@ -42,6 +56,11 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         JesterTrumpChallenge::class,
         WildTrumpChallenge::class,
         CardDoneLastChallenge::class,
+        WinCommunicationByTasksChallenge::class,
+        WinCommunicationByTricksChallenge::class,
+        PassingForCommunicationChallenge::class,
+        DiscardByCommunicationTokenChallenge::class,
+        FirstTrickPoolChallenge::class,
     )
 
     init{
@@ -91,6 +110,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         var currentList: MutableList<Challenge> = mutableListOf<Challenge>()
         var currentChallengeOptions = challengeList
         var currentDifficulty = difficulty
+        var communicationChallenges = 0
 
         while(currentList.count() < numberOfChallenges && currentChallengeOptions.count() > 0){
             var totalWeight: Int = 0
@@ -118,6 +138,16 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             if (currentDifficulty - chosenChallenge.challengeDifficulty >= this.minimumDifficulty){
                 currentDifficulty -= chosenChallenge.challengeDifficulty
                 currentList.add (chosenChallenge)
+
+                //Too many communication challenges at once gets redundant
+                //So limit how many can be chosen
+                if (chosenChallenge.tags.contains(Challenge.TagOptions.Communication)){
+                    communicationChallenges += 1
+                    if (communicationChallenges == maxCommunicationChallenges){
+                        currentChallengeOptions = filterChallengesByTag(currentChallengeOptions,Challenge.TagOptions.Communication)
+                    }
+                }
+
                 currentChallengeOptions = filterIncompatibleChallenges(chosenChallenge, currentChallengeOptions)
             } else {
                 currentChallengeOptions.remove(chosenChallenge)
@@ -132,6 +162,11 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
     //after picking a challenge, this function ensures the list of available options no longer includes itself or incompatible challenges
     private fun filterIncompatibleChallenges(newChallenge: Challenge, currentChallengeOptions: MutableList<Challenge>): MutableList<Challenge>{
         currentChallengeOptions.removeAll(currentChallengeOptions.filter{ newChallenge::class == it::class || ChallengeIncompatibilityTable.incompatible(it::class,newChallenge::class) })
+        return currentChallengeOptions
+    }
+
+    private fun filterChallengesByTag(currentChallengeOptions: MutableList<Challenge>, tag: Challenge.TagOptions) : MutableList<Challenge>{
+        currentChallengeOptions.removeAll(currentChallengeOptions.filter { it.tags.contains(tag) })
         return currentChallengeOptions
     }
     fun getRemainingDifficulty(challenges: List<Challenge>): Int {
