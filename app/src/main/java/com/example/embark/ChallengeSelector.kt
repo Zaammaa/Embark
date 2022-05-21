@@ -67,7 +67,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             if (chosenChallenges.filter { it::class.isSubclassOf(Crew1TaskCardsChallenge::class) }.isEmpty()) {
                 var tokenChallenges = (chosenChallenges.filter { it::class.isSubclassOf(Crew1TokensChallenge::class) } as List<Crew1TokensChallenge>).toMutableList()
                 if (!tokenChallenges.isEmpty()) {
-                    chosenChallenges = chooseBalancedTokensAndTasks(chosenChallenges, tokenChallenges)
+                    chosenChallenges = chooseBalancedTokensAndTasks(chosenChallenges, tokenChallenges, true)
                 } else {
                     var taskChallenge = chooseBasicTaskCardChallenge(chosenChallenges)
                     chosenChallenges.add(taskChallenge)
@@ -146,11 +146,17 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         var taskChallenge = BasicTaskCardsChallenge(playerCount, remainingDifficulty,game).chooseChallenge()
         return taskChallenge as BasicTaskCardsChallenge
     }
-    private fun chooseBalancedTokensAndTasks(chosenChallenges: MutableList<Challenge>, tokenChallenges: MutableList<Crew1TokensChallenge>): MutableList<Challenge> {
+    private fun chooseBalancedTokensAndTasks(chosenChallenges: MutableList<Challenge>, tokenChallenges: MutableList<Crew1TokensChallenge>, trySwap: Boolean): MutableList<Challenge> {
         var taskChallenge = chooseBasicTaskCardChallenge(chosenChallenges)
-        chosenChallenges.removeAll(tokenChallenges)
         var tasks = taskChallenge.tasks
         var tokens = sumTokens(tokenChallenges)
+        // Try adding swap token challenge
+        if (trySwap) {
+            chooseSwapTokenChallenge(chosenChallenges, tasks, tokens)
+            taskChallenge = chooseBasicTaskCardChallenge(chosenChallenges)
+            tasks = taskChallenge.tasks
+        }
+        chosenChallenges.removeAll(tokenChallenges)
         while (tasks < tokens) {
             subtractToken(tokenChallenges)
             tokens = sumTokens(tokenChallenges)
@@ -174,10 +180,17 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             // ordered/omega-last is in play is harder than difficulty says
         } else if (tasks - 1 == tokens && (ordered || omegaLast)) {
             subtractToken(tokenChallenges)
+            ordered = tokenChallenges.filter { it::class == OrderedTokensChallenge::class }.isNotEmpty()
         }
         taskChallenge = chooseBasicTaskCardChallenge(chosenChallenges + tokenChallenges)
         tasks = taskChallenge.tasks
         tokens = sumTokens(tokenChallenges)
+        // Get rid os swap/move challenge if there is no ordered token or there are too few tokens
+        var swap = chosenChallenges.filter { it::class == SwapTaskTokensChallenge::class || it::class == MoveTaskTokenChallenge::class} as List<Challenge>
+        if (swap.isNotEmpty() && (!ordered || tokens < 2) ) {
+            chosenChallenges.remove(swap[0])
+            return chooseBalancedTokensAndTasks(chosenChallenges, tokenChallenges, false)
+        }
         // When all cards have tokens, swap omega last for another ordered token if possible
         if (tasks == tokens && ordered && omegaLast) {
             var orderedTask = orderedList[0]
@@ -191,6 +204,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         }
         chosenChallenges.add(taskChallenge)
         chosenChallenges.addAll(tokenChallenges)
+        chosenChallenges.sortByDescending { it.weight }
         return chosenChallenges
     }
     private fun sumTokens(tokenChallenges: List<Crew1TokensChallenge>): Int {
@@ -211,5 +225,21 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         challenge.tokens -= 1
         challenge.chooseChallenge()
         tokenChallenges.add(challenge)
+    }
+
+    private fun chooseSwapTokenChallenge(chosenChallenges: MutableList<Challenge>, tasks: Int, tokens: Int) {
+        if (chosenChallenges.size < 4 && tokens > 1) {
+            var swapBound = if (6 - tokens > 0) 6 - tokens else 1
+            var moveBound = if (6 - (tasks - tokens) > 0) 6 - (tasks - tokens) else 1
+            // At least 3 tokens, more likely the more tokens
+            if (tokens > 2 && Random.nextInt(swapBound) == 0) {
+                var swap = SwapTaskTokensChallenge(playerCount, difficulty, game).chooseChallenge()
+                chosenChallenges.add(swap)
+            // At least 2 open cards (and at least 2 tokens), more likely with more empty task cards
+            } else if (tasks - tokens > 1 && Random.nextInt(moveBound) == 0) {
+                var swap = MoveTaskTokenChallenge(playerCount, difficulty, game).chooseChallenge()
+                chosenChallenges.add(swap)
+            }
+        }
     }
 }
