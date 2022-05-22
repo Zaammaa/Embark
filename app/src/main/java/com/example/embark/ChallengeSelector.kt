@@ -7,9 +7,7 @@ import com.example.embark.Challenges.PreGame.CardDraftingChallenge
 import com.example.embark.Challenges.PreGame.CardPassesChallenge
 import com.example.embark.Challenges.PreGame.RandomCardPassChallenge
 import com.example.embark.Challenges.TaskCardGeneration.BasicTaskCardsChallenge
-import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionRevealedChallenge
-import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionSecretChallenge
-import com.example.embark.Challenges.TaskCardGeneration.Crew1TaskCardsChallenge
+import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionChallenge
 import com.example.embark.Challenges.TaskCardSelection.CommanderIsSkippedChallenge
 import com.example.embark.Challenges.TaskCardSelection.TaskPassesChallenge
 import com.example.embark.Challenges.TaskTokens.*
@@ -31,8 +29,6 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
     //For now, just list all challenges here manually
     private val allChallenges: List<KClass<out Challenge>> = mutableListOf<KClass<out Challenge>>(
         CardPassesChallenge::class,
-        CommandersDecisionSecretChallenge::class,
-        CommandersDecisionRevealedChallenge::class,
         TaskPassesChallenge::class,
         UnorderedCommunicationChallenge::class,
         DisruptedCommunicateChallenge::class,
@@ -82,9 +78,17 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             }
             chosenChallenges = chooseChallenges(challengeList)
 
-            // If no task challenge was selected, use the base one with remaining difficulty
-            if (chosenChallenges.filter { it::class.isSubclassOf(Crew1TaskCardsChallenge::class) }.isEmpty()) {
-                var tokenChallenges = (chosenChallenges.filter { it::class.isSubclassOf(Crew1TokensChallenge::class) } as List<Crew1TokensChallenge>).toMutableList()
+            // Choose commander's decision challenge or basic task card challenge
+            var incompatible = chosenChallenges.filter { ChallengeIncompatibilityTable.incompatible(it::class,CommandersDecisionChallenge::class) }.isNotEmpty()
+            var remainingDifficulty = getRemainingDifficulty(chosenChallenges)
+            var decisionChallenge = CommandersDecisionChallenge(playerCount, remainingDifficulty, game).chooseChallenge()
+            var insufficientDifficulty = remainingDifficulty < decisionChallenge.getDifficultyMod()
+            var mustDoBasic = incompatible || chosenChallenges.size == 4 || insufficientDifficulty
+            if (!mustDoBasic && Random.nextInt(2) == 0) {
+                chosenChallenges.add(decisionChallenge)
+            } else {
+                var tokenChallenges =
+                    (chosenChallenges.filter { it::class.isSubclassOf(Crew1TokensChallenge::class) } as List<Crew1TokensChallenge>).toMutableList()
                 if (!tokenChallenges.isEmpty()) {
                     chosenChallenges = chooseBalancedTokensAndTasks(chosenChallenges, tokenChallenges, true)
                 } else {
@@ -101,6 +105,8 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             }
             chosenChallenges = chooseChallenges(challengeList)
         }
+        //Sort makes it so the challenges usually appear in a similar order in the UI
+        chosenChallenges.sortByDescending { it.weight }
         return chosenChallenges
     }
 
@@ -155,8 +161,6 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             }
 
         }
-        //Sort makes it so the challenges usually appear in a similar order in the UI
-        currentList.sortByDescending { it.weight }
         return currentList
     }
     //after picking a challenge, this function ensures the list of available options no longer includes itself or incompatible challenges
@@ -239,7 +243,6 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         }
         chosenChallenges.add(taskChallenge)
         chosenChallenges.addAll(tokenChallenges)
-        chosenChallenges.sortByDescending { it.weight }
         return chosenChallenges
     }
     private fun sumTokens(tokenChallenges: List<Crew1TokensChallenge>): Int {

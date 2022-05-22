@@ -6,8 +6,7 @@ import com.example.embark.Challenges.Gameplay.FirstTrickPoolChallenge
 import com.example.embark.Challenges.Gameplay.JesterTrumpChallenge
 import com.example.embark.Challenges.Gameplay.WinEachTrumpChallenge
 import com.example.embark.Challenges.TaskCardGeneration.BasicTaskCardsChallenge
-import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionRevealedChallenge
-import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionSecretChallenge
+import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionChallenge
 import com.example.embark.Challenges.TaskCardSelection.CommanderIsSkippedChallenge
 import com.example.embark.Challenges.TaskCardSelection.TaskPassesChallenge
 import com.example.embark.Challenges.TaskTokens.OmegaTokenChallenge
@@ -19,19 +18,13 @@ class ChallengeIncompatibilityTable {
     companion object{
         private val incompatibilityList: MutableList<Pair<KClass<out Challenge>,KClass<out Challenge>>> = mutableListOf(
             //Task cards
-            Pair(CommandersDecisionRevealedChallenge::class, BasicTaskCardsChallenge::class),
-            Pair(CommandersDecisionSecretChallenge::class, BasicTaskCardsChallenge::class),
-            Pair(TaskPassesChallenge::class, CommandersDecisionRevealedChallenge::class),
-            Pair(TaskPassesChallenge::class, CommandersDecisionSecretChallenge::class),
-            Pair(CommandersDecisionSecretChallenge::class, CommandersDecisionRevealedChallenge::class),
+            Pair(CommandersDecisionChallenge::class, BasicTaskCardsChallenge::class),
+            Pair(TaskPassesChallenge::class, CommandersDecisionChallenge::class),
 
             //Task card tokens
-            Pair(UnorderedTokensChallenge::class, CommandersDecisionSecretChallenge::class),
-            Pair(UnorderedTokensChallenge::class, CommandersDecisionRevealedChallenge::class),
-            Pair(OrderedTokensChallenge::class, CommandersDecisionSecretChallenge::class),
-            Pair(OrderedTokensChallenge::class, CommandersDecisionRevealedChallenge::class),
-            Pair(OmegaTokenChallenge::class, CommandersDecisionSecretChallenge::class),
-            Pair(OmegaTokenChallenge::class, CommandersDecisionRevealedChallenge::class),
+            Pair(UnorderedTokensChallenge::class, CommandersDecisionChallenge::class),
+            Pair(OrderedTokensChallenge::class, CommandersDecisionChallenge::class),
+            Pair(OmegaTokenChallenge::class, CommandersDecisionChallenge::class),
 
             //communication
             Pair(FewerCommunicationTokensChallenge::class, CommunicationPassesChallenge::class),
@@ -60,8 +53,7 @@ class ChallengeIncompatibilityTable {
             Pair(FirstTrickPoolChallenge::class, UnorderedCommunicationChallenge::class),
 
             //other
-            Pair(CommanderIsSkippedChallenge::class, CommandersDecisionRevealedChallenge::class),
-            Pair(CommanderIsSkippedChallenge::class, CommandersDecisionSecretChallenge::class),
+            Pair(CommanderIsSkippedChallenge::class, CommandersDecisionChallenge::class),
             Pair(JesterTrumpChallenge::class, WinEachTrumpChallenge::class),
         )
 
