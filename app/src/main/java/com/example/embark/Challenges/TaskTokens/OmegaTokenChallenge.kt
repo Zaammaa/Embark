@@ -44,8 +44,8 @@ class OmegaTokenChallenge(numberOfPlayers: Int, difficulty: Int, game: String) :
 
     override fun displayShortDescription(): String{
         if (type == "last") {
-            return "omega token (last task)"
+            return "Omega token (last task)"
         }
-        return "omega token (final trick)"
+        return "Omega token (final trick)"
     }
 }

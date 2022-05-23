@@ -12,7 +12,7 @@ class FirstTrickPoolChallenge(numberOfPlayers: Int, difficulty: Int, game: Strin
         get() = arrayOf(-4,-4,-5)
     override val description: String
         get() = "After the first trick is taken, all cards in it are placed face $cardDirection on the table instead of being taken as a trick. Players cannot use their communication tokens normally, " +
-                "but can instead spend them to swap a card from hand with one on the table, placing it face $cardDirection. The cards may only be looked at when using a token to swap."
+                "but can instead spend them to swap a card from hand with one on the table, placing it face $cardDirection."
     override var icon: Int = R.drawable.card_pool
 
     override val crew1Compatible: Boolean
@@ -37,6 +37,9 @@ class FirstTrickPoolChallenge(numberOfPlayers: Int, difficulty: Int, game: Strin
     }
 
     override fun displayFullDescription(): String{
+        if (cardDirection == "down") {
+            return description + " The cards may only be looked at when using a token to swap."
+        }
         return description
     }
 

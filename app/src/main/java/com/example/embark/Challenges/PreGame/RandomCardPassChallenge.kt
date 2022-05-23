@@ -36,6 +36,6 @@ class RandomCardPassChallenge(numberOfPlayers: Int, difficulty: Int, game: Strin
     }
 
     override fun displayShortDescription(): String{
-        return "draw a card from player to the $direction"
+        return "Draw a card from player to the $direction"
     }
 }

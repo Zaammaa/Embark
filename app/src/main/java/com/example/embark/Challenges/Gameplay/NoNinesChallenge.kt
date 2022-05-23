@@ -11,7 +11,7 @@ class NoNinesChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Ch
         get() = arrayOf(6,7,8)
     override val description: String
         get() = "No trick may be won using a 9"
-    override var icon: Int = R.drawable.nines
+    override var icon: Int = R.drawable.no_nines
 
     override val crew1Compatible: Boolean
         get() = true
