@@ -10,7 +10,7 @@ class TaskPassesChallenge(numberOfPlayers: Int, difficulty: Int, game: String) :
         get() = arrayOf(-2,-2,-2)
     override val description: String
         get() = "Each pass lets one player pass a task to another player after the tasks have been chosen,"
-    override var icon: Int = R.drawable.octopus_black
+    override var icon: Int = R.drawable.task_card_pass_crew1
 
     override val crew1Compatible: Boolean
         get() = true
@@ -27,6 +27,9 @@ class TaskPassesChallenge(numberOfPlayers: Int, difficulty: Int, game: String) :
             challengeDifficulty = getDifficultyMod() * (passes - 1)
         } else {
             challengeDifficulty = getDifficultyMod() * passes
+        }
+        if (game == GameModes.DeepSea) {
+            icon = R.drawable.octopus_black
         }
         return this
     }
