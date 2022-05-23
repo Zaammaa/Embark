@@ -14,6 +14,13 @@ class UnorderedTokensChallenge(numberOfPlayers: Int, difficulty: Int, game: Stri
         get() = "Place given tokens onto task cards as they are drawn.  These tasks must be taken in order amongst themselves"
     override var icon: Int = R.drawable.unordered_tasks_1
 
+    private val iconArray = arrayOf(
+        R.drawable.unordered_tasks_1,
+        R.drawable.unordered_tasks_2,
+        R.drawable.unordered_tasks_3,
+        R.drawable.unordered_tasks_4
+    )
+
     override val crew1Compatible: Boolean
         get() = true
     override val crew2Compatible: Boolean
@@ -28,6 +35,7 @@ class UnorderedTokensChallenge(numberOfPlayers: Int, difficulty: Int, game: Stri
         } else if (tokens > maxTokens) {
             tokens = maxTokens
         }
+        icon = iconArray[tokens - 1]
         challengeDifficulty = getDifficultyMod() * (tokens - 1)
         return this
     }

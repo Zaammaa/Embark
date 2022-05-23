@@ -9,7 +9,8 @@ class CardDraftingChallenge(numberOfPlayers: Int, difficulty: Int, game: String)
     override val difficultyMod: Array<Int>
         get() = arrayOf(-3,-4,-4)
     override val description: String
-        get() = "When dealing, lay aside one card per player. When selecting tasks, players must each chose a card to add to their hand in order. If the 4 ${GameSpecificNames.trump} is one of the cards, the dealer starts the draft"
+        get() = "When dealing, lay aside one card per player. Each crew member picks a card in the same way they pick a task, adding it to their hand. " +
+                "This happens at the same time as selecting tasks if tasks are available. If the 4 ${GameSpecificNames.trump} is one of the cards, the dealer starts the draft."
     override var icon: Int = R.drawable.nines
 
     override val crew1Compatible: Boolean

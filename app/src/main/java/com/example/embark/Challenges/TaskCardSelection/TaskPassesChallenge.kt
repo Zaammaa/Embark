@@ -5,7 +5,7 @@ import kotlin.random.Random
 
 class TaskPassesChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
     override val weight: Int
-        get() = 100
+        get() = 150
     override val difficultyMod: Array<Int>
         get() = arrayOf(-2,-2,-2)
     override val description: String
@@ -21,49 +21,35 @@ class TaskPassesChallenge(numberOfPlayers: Int, difficulty: Int, game: String) :
 
     override fun chooseChallenge(): Challenge {
         passes = chooseNumberOfPasses()
-        challengeDifficulty = when (passes) {
-            0 -> {
-                1 - getDifficultyMod()
-            }
-            1 -> {
-                //1 pass is considered normal difficulty
-                0
-            }
-            else -> {
-                //subtract the difficulty modifier for each pass above 1
-                getDifficultyMod() * (passes - 1)
-            }
+
+        //Planet nine with 5 players get a pass always
+        if (players == 5 && game == GameModes.PlanetNine){
+            challengeDifficulty = getDifficultyMod() * (passes - 1)
+        } else {
+            challengeDifficulty = getDifficultyMod() * passes
         }
         return this
     }
 
-    //We don't want an even distribution of results. Most of the time we want 1.
-    //Next most common are 0 and 2
-    //And then 3 is rare and 4 is very rare
-    private fun chooseNumberOfPasses(): Int {
-        val zeroWeight = 15
-        val oneWeight = 60
-        val twoWeight = 15
-        val threeWeight = 9
-        val fourWeight = 1
+    //Planet nine with 5 players get a pass always. This function is used to add it to the challenge list as a reminder
+    //This method always uses 1 pass without changing the difficulty
+    fun guaranteedPass(): Challenge{
+        passes = 1
+        challengeDifficulty = 0
+        return this
+    }
 
-        var roll = Random.nextInt(zeroWeight + oneWeight + twoWeight + threeWeight + fourWeight)
-        when {
-            roll < fourWeight -> {
-                return 4
-            }
-            roll < fourWeight + threeWeight -> {
-                return 3
-            }
-            roll < fourWeight + threeWeight + twoWeight -> {
-                return 2
-            }
-            roll < fourWeight + threeWeight + twoWeight + oneWeight -> {
-                return 1
-            }
-            else -> {
-                return 0
-            }
+    //We don't want an even distribution of results
+    private fun chooseNumberOfPasses(): Int {
+        val roll = Random.nextInt(100)
+        if (roll < 45) {
+            return 1
+        } else if (roll < 70){
+            return 2
+        } else if (roll < 90){
+            return 3
+        } else {
+            return 4
         }
     }
 

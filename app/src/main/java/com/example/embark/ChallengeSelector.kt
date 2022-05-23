@@ -79,7 +79,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             chosenChallenges = chooseChallenges(challengeList)
 
             // Choose commander's decision challenge or basic task card challenge
-            var incompatible = chosenChallenges.filter { ChallengeIncompatibilityTable.incompatible(it::class,CommandersDecisionChallenge::class) }.isNotEmpty()
+            var incompatible = ChallengeIncompatibilityTable.incompatibleWithAny(chosenChallenges,CommandersDecisionChallenge::class)
             var remainingDifficulty = getRemainingDifficulty(chosenChallenges)
             var decisionChallenge = CommandersDecisionChallenge(playerCount, remainingDifficulty, game).chooseChallenge()
             var insufficientDifficulty = remainingDifficulty < decisionChallenge.getDifficultyMod()
@@ -95,6 +95,10 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
                     var taskChallenge = chooseBasicTaskCardChallenge(chosenChallenges)
                     chosenChallenges.add(taskChallenge)
                 }
+            }
+            //guaranteed task pass if 5 players and nothing else makes it incompatible
+            if (playerCount == 5 && chosenChallenges.none{it::class == TaskPassesChallenge::class} && ChallengeIncompatibilityTable.compatibleWithAll(chosenChallenges, TaskPassesChallenge::class)){
+                chosenChallenges.add(TaskPassesChallenge(playerCount,difficulty,game).guaranteedPass())
             }
         } else if(game == "deep sea") {
             allChallenges.forEach {

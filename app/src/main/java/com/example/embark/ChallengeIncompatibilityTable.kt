@@ -56,13 +56,27 @@ class ChallengeIncompatibilityTable {
             Pair(CommanderIsSkippedChallenge::class, CommandersDecisionChallenge::class),
             Pair(JesterTrumpChallenge::class, WinEachTrumpChallenge::class),
         )
+        //returns true if any of the list of challenges is incompatible with the given challenge. False otherwise
+        fun incompatibleWithAny(challenges: List<Challenge>, challenge: KClass<out Challenge>): Boolean{
+            return challenges.any { incompatible(it::class, challenge) }
+        }
 
-        //returns true if the challenges are incompatible, false otherwise
+        //returns true if all of the list of challenges is compatible with the given challenge. False otherwise
+        fun compatibleWithAll(challenges: List<Challenge>, challenge: KClass<out Challenge>): Boolean{
+            return !incompatibleWithAny(challenges,challenge)
+        }
+
+        //returns true if the challenges are incompatible. False otherwise
         fun incompatible(challenge1: KClass<out Challenge>, challenge2: KClass<out Challenge>): Boolean{
             if(incompatibleWith(challenge1).contains(challenge2)){
                 return true
             }
             return false
+        }
+
+        //returns true if the challenges are compatible. False otherwise
+        fun compatible(challenge1: KClass<out Challenge>, challenge2: KClass<out Challenge>): Boolean{
+            return !incompatible(challenge1,challenge2)
         }
 
         //returns a list of all the challenges that are incompatible with the inputted challenge
