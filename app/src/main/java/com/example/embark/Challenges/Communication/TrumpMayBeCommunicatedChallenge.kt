@@ -9,7 +9,7 @@ class TrumpMayBeCommunicatedChallenge(numberOfPlayers: Int, difficulty: Int, gam
     override val difficultyMod: Array<Int>
         get() = arrayOf(-2,-2,-2)
     override val description: String
-        get() = "${GameSpecificNames.trump} cards may be communicated"
+        get() = "${GameSpecificNames.trump} cards may be communicated".replaceFirstChar { it.uppercase() }
     override var icon: Int = R.drawable.communicating_rocket_cards
 
     override val crew1Compatible: Boolean

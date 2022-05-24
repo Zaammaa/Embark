@@ -31,6 +31,6 @@ class UnorderedCommunicationChallenge(numberOfPlayers: Int, difficulty: Int, gam
     }
 
     override fun displayShortDescription(): String{
-        return "Unordered Communication"
+        return "Unordered communication"
     }
 }

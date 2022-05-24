@@ -36,6 +36,6 @@ class CardPassesChallenge(numberOfPlayers: Int, difficulty: Int, game: String) :
     }
 
     override fun displayShortDescription(): String{
-        return "pass a card to the $direction"
+        return "Pass a card to the $direction"
     }
 }
