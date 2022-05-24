@@ -145,7 +145,9 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             if (chosenChallenge == null){
                 throw Exception("No challenge chosen unexpectedly")
             }
-            if (currentDifficulty - chosenChallenge.challengeDifficulty >= this.minimumDifficulty){
+            var availableDifficulty = currentDifficulty - chosenChallenge.challengeDifficulty
+            var tooManyPasses = hasTooManyTaskPasses(availableDifficulty, currentList)
+             if (availableDifficulty >= this.minimumDifficulty && !tooManyPasses){
                 currentDifficulty -= chosenChallenge.challengeDifficulty
                 currentList.add (chosenChallenge)
 
@@ -166,6 +168,18 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
 
         }
         return currentList
+    }
+    private fun hasTooManyTaskPasses(availableDifficulty: Int, currentChallengeOptions: List<Challenge>): Boolean {
+        var taskPassChallenge = currentChallengeOptions.filter { it::class == TaskPassesChallenge::class } as List<TaskPassesChallenge>
+        if (taskPassChallenge.isNotEmpty()) {
+            var passes = taskPassChallenge[0].passes
+            // Add 1 since 4th task with 5 players adds 2 difficulty in crew1
+            if (passes == 4 && playerCount == 5 && game == "planet nine") {
+                return passes + 1 > availableDifficulty
+            }
+             return passes > availableDifficulty
+        }
+        return false
     }
     //after picking a challenge, this function ensures the list of available options no longer includes itself or incompatible challenges
     private fun filterIncompatibleChallenges(newChallenge: Challenge, currentChallengeOptions: MutableList<Challenge>): MutableList<Challenge>{
