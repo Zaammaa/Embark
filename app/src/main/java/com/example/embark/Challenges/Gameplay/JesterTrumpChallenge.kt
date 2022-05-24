@@ -9,7 +9,7 @@ class JesterTrumpChallenge(numberOfPlayers: Int, difficulty: Int, game: String) 
     override val difficultyMod: Array<Int>
         get() = arrayOf(-2,-2,-2)
     override val description: String
-        get() = "${GameSpecificNames.trump} cards no longer function as trump, but may be played at any time even to not follow suit. Leading a trump card behaves normally"
+        get() = "${GameSpecificNames.trump} cards no longer function as trump, but may be played at any time even to not follow suit. Leading a ${GameSpecificNames.trump} card behaves normally".replaceFirstChar { it.uppercase() }
     override var icon: Int = R.drawable.jester
 
     override val crew1Compatible: Boolean
@@ -27,6 +27,6 @@ class JesterTrumpChallenge(numberOfPlayers: Int, difficulty: Int, game: String) 
     }
 
     override fun displayShortDescription(): String{
-        return "${GameSpecificNames.trump} cards are no longer trump, but can be played at any time"
+        return "${GameSpecificNames.trump} cards are no longer trump, but can be played at any time".replaceFirstChar { it.uppercase() }
     }
 }
