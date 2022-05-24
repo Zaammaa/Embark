@@ -20,7 +20,8 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_above="@+id/difficulty"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/black"/>
 
 
     <TextView
@@ -33,7 +34,9 @@
         android:textStyle="bold"
 
         android:text="Challenge Difficulty"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:theme="@style/customStyle"
+        android:textColor="?colorPrimary"/>
 
     <!--    <Button-->
 <!--        android:id="@+id/closeButton"-->

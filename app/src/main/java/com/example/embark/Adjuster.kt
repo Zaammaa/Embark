@@ -72,6 +72,11 @@ class Adjuster(context: Context, attrs: AttributeSet) : LinearLayout(context, at
         }
     }
 
+    fun setAdjusterValue(v: Int){
+        value = v
+        updateValue(value)
+    }
+
     fun updateValue(v: Int){
         valueField?.setText(v.toString())
         invalidate()
