@@ -87,6 +87,18 @@ abstract class Challenge(numberOfPlayers: Int, difficulty: Int, gameMode: String
         }
     }
 
+    fun pickRandomPlayer(): Int {
+        return Random.nextInt(players) + 1
+    }
+
+    fun pickRandomDirection() : String{
+        if (Random.nextBoolean()){
+            return "left"
+        } else {
+            return "right"
+        }
+    }
+
     open fun displayFullDescription(): String{
         throw NotImplementedError("Function not overridden")
     }

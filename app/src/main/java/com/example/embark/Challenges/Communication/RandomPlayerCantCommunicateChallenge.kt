@@ -26,7 +26,7 @@ class RandomPlayerCantCommunicateChallenge(numberOfPlayers: Int, difficulty: Int
 
     override fun chooseChallenge(): Challenge {
         challengeDifficulty = getDifficultyMod()
-        player = Random.nextInt(players) + 1
+        player = pickRandomPlayer()
         return this
     }
 

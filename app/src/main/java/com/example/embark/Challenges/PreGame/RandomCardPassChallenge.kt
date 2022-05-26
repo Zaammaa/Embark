@@ -22,11 +22,7 @@ class RandomCardPassChallenge(numberOfPlayers: Int, difficulty: Int, game: Strin
     var direction = ""
 
     override fun chooseChallenge(): Challenge {
-        if (Random.nextBoolean()){
-            direction = "left"
-        } else {
-            direction = "right"
-        }
+        direction = pickRandomDirection()
         challengeDifficulty = getDifficultyMod()
         return this
     }

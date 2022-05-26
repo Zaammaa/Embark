@@ -59,6 +59,10 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         DiscardByCommunicationTokenChallenge::class,
         FirstTrickPoolChallenge::class,
         CommandersDistributionChallenge::class,
+        BreakSuitChallenge::class,
+        PassAfterCardWinsChallenge::class,
+        CantLeadUntilTakenChallenge::class,
+        LimitedCommunicationsPerTrick::class,
     )
 
     init{
