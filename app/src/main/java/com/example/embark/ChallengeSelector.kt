@@ -63,6 +63,8 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         PassAfterCardWinsChallenge::class,
         CantLeadUntilTakenChallenge::class,
         LimitedCommunicationsPerTrick::class,
+        TakeWithOnesChallenge::class,
+        TakeAllOfOneSuitChallenge::class,
     )
 
     init{
