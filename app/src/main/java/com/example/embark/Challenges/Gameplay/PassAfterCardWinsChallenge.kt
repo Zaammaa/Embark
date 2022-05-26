@@ -6,7 +6,7 @@ import kotlin.random.Random
 
 class PassAfterCardWinsChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
     override val weight: Int
-        get() = 1000
+        get() = 10
     override val difficultyMod: Array<Int>
         get() = arrayOf(-2,-2,-2)
     override val description: String

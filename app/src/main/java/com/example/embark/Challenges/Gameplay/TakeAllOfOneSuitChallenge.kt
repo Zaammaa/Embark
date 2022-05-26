@@ -35,7 +35,7 @@ class TakeAllOfOneSuitChallenge(numberOfPlayers: Int, difficulty: Int, game: Str
         if (suit == "any") {
             return description
         }
-        return description + " (chosen by the app). If a $suit task card is drawn, replace it with a different task"
+        return description + " (chosen randomly). If a $suit task card is drawn, replace it with a different task"
     }
 
     override fun displayShortDescription(): String{
