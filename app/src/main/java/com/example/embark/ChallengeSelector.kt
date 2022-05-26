@@ -248,6 +248,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         var swap = chosenChallenges.filter { it::class == SwapTaskTokensChallenge::class || it::class == MoveTaskTokenChallenge::class} as List<Challenge>
         if (swap.isNotEmpty() && (!ordered || tokens < 2) ) {
             chosenChallenges.remove(swap[0])
+            chosenChallenges.addAll(tokenChallenges)
             return chooseBalancedTokensAndTasks(chosenChallenges, tokenChallenges, false)
         }
         // When all cards have tokens, swap omega last for another ordered token if possible
