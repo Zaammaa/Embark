@@ -7,7 +7,7 @@ import kotlin.random.Random
 class FirstTrickPoolChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
 
     override val weight: Int
-        get() = 5
+        get() = 7
     override val difficultyMod: Array<Int>
         get() = arrayOf(-4,-4,-5)
     override val description: String
@@ -31,7 +31,7 @@ class FirstTrickPoolChallenge(numberOfPlayers: Int, difficulty: Int, game: Strin
         challengeDifficulty = getDifficultyMod()
         if (Random.nextBoolean()){
             cardDirection = "down"
-            challengeDifficulty += 3
+            challengeDifficulty += 2
         }
         return this
     }

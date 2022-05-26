@@ -6,9 +6,9 @@ import com.example.embark.R
 class UnorderedCommunicationChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Challenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, gameMode = game) {
 
     override val weight: Int
-        get() = 20
+        get() = 25
     override val difficultyMod: Array<Int>
-        get() = arrayOf(1,1,1)
+        get() = arrayOf(2,2,2)
     override val description: String
         get() = "Communication tokens cannot be used to show the position of cards in hand"
     override var icon: Int = R.drawable.unordered_communication

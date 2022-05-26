@@ -8,7 +8,7 @@ class PassingForCommunicationChallenge(numberOfPlayers: Int, difficulty: Int, ga
     override val weight: Int
         get() = 7
     override val difficultyMod: Array<Int>
-        get() = arrayOf(2,3,3)
+        get() = arrayOf(2,3,2)
     override val description: String
         get() = "Instead of normal communication, players can pass a card face down to 1 other player to look at, who then passes it back. In 5 player games, " +
                 "this may be done twice for each communication token you have, and can be different cards to different players or the same player. You cannot tell the position, but may show any card in hand besides ${GameSpecificNames.trump}s"
