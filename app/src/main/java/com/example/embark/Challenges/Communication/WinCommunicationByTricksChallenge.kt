@@ -36,10 +36,10 @@ class WinCommunicationByTricksChallenge(numberOfPlayers: Int, difficulty: Int, g
     }
 
     override fun displayFullDescription(): String{
-        return description
+        return "Players start with 0 communication tokens, but gain one token for every $tricksPerToken tricks they take. Won tokens are awarded to the player who took the trick. The player does not gain another token if they still have an unused or in-use one"
     }
 
     override fun displayShortDescription(): String{
-        return "Win communication tokens by taking tricks"
+        return "Players win communication tokens every time they take $tricksPerToken tricks"
     }
 }
