@@ -90,7 +90,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             var incompatible = ChallengeIncompatibilityTable.incompatibleWithAny(chosenChallenges,CommandersDecisionChallenge::class)
             var remainingDifficulty = getRemainingDifficulty(chosenChallenges)
             var decisionChallenge = CommandersDecisionChallenge(playerCount, remainingDifficulty, game).chooseChallenge()
-            var insufficientDifficulty = remainingDifficulty < decisionChallenge.getDifficultyMod()
+            var insufficientDifficulty = remainingDifficulty < decisionChallenge.challengeDifficulty
             var mustDoBasic = incompatible || chosenChallenges.size == 4 || insufficientDifficulty
             if (!mustDoBasic && Random.nextInt(2) == 0) {
                 chosenChallenges.add(decisionChallenge)
