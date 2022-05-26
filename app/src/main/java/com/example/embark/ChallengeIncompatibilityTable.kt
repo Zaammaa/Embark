@@ -52,6 +52,10 @@ class ChallengeIncompatibilityTable {
             Pair(FirstTrickPoolChallenge::class, TrumpMayBeCommunicatedChallenge::class),
             Pair(FirstTrickPoolChallenge::class, UnorderedCommunicationChallenge::class),
 
+            Pair(LimitedCommunicationsPerTrick::class, DisruptedCommunicateChallenge::class),
+            Pair(LimitedCommunicationsPerTrick::class, FirstTurnCommunicationChallenge::class),
+            Pair(LimitedCommunicationsPerTrick::class, WinCommunicationByTricksChallenge::class),
+            Pair(LimitedCommunicationsPerTrick::class, WinCommunicationByTasksChallenge::class),
             //other
             Pair(CommanderIsSkippedChallenge::class, CommandersDecisionChallenge::class),
             Pair(JesterTrumpChallenge::class, WinEachTrumpChallenge::class),
