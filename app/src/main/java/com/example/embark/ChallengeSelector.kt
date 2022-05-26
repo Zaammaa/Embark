@@ -9,6 +9,7 @@ import com.example.embark.Challenges.PreGame.RandomCardPassChallenge
 import com.example.embark.Challenges.TaskCardGeneration.BasicTaskCardsChallenge
 import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionChallenge
 import com.example.embark.Challenges.TaskCardSelection.CommanderIsSkippedChallenge
+import com.example.embark.Challenges.TaskCardSelection.CommandersDistributionChallenge
 import com.example.embark.Challenges.TaskCardSelection.TaskPassesChallenge
 import com.example.embark.Challenges.TaskTokens.*
 import kotlin.random.Random
@@ -57,6 +58,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         PassingForCommunicationChallenge::class,
         DiscardByCommunicationTokenChallenge::class,
         FirstTrickPoolChallenge::class,
+        CommandersDistributionChallenge::class,
     )
 
     init{
