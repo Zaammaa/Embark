@@ -32,6 +32,9 @@ class WinCommunicationByTricksChallenge(numberOfPlayers: Int, difficulty: Int, g
         if (tricksPerToken > 1){
             challengeDifficulty += 1
         }
+        if (tricksPerToken > 2){
+            challengeDifficulty += 1
+        }
         return this
     }
 

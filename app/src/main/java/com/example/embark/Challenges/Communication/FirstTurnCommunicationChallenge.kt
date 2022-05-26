@@ -7,7 +7,7 @@ class FirstTurnCommunicationChallenge(numberOfPlayers: Int, difficulty: Int, gam
     override val weight: Int
         get() = 10
     override val difficultyMod: Array<Int>
-        get() = arrayOf(4,4,4)
+        get() = arrayOf(3,3,3)
     override val description: String
         get() = "All communication must be done before the first trick"
     override var icon: Int = R.drawable.communication_token_disabled

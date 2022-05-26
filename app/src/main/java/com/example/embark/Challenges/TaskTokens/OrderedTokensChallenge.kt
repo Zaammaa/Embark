@@ -7,7 +7,7 @@ import kotlin.random.Random
 class OrderedTokensChallenge(numberOfPlayers: Int, difficulty: Int, game: String) : Crew1TokensChallenge(numberOfPlayers =  numberOfPlayers, difficulty = difficulty, game = game) {
 
     override val weight: Int
-        get() = 30
+        get() = 40
     override val difficultyMod: Array<Int>
         get() = arrayOf(2,2,2)
     override val description: String
