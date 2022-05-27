@@ -8,6 +8,7 @@ import com.example.embark.Challenges.Gameplay.WinEachTrumpChallenge
 import com.example.embark.Challenges.TaskCardGeneration.BasicTaskCardsChallenge
 import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionChallenge
 import com.example.embark.Challenges.TaskCardSelection.CommanderIsSkippedChallenge
+import com.example.embark.Challenges.TaskCardSelection.CommandersDistributionChallenge
 import com.example.embark.Challenges.TaskCardSelection.TaskPassesChallenge
 import com.example.embark.Challenges.TaskTokens.OmegaTokenChallenge
 import com.example.embark.Challenges.TaskTokens.OrderedTokensChallenge
@@ -20,6 +21,10 @@ class ChallengeIncompatibilityTable {
             //Task cards
             Pair(CommandersDecisionChallenge::class, BasicTaskCardsChallenge::class),
             Pair(TaskPassesChallenge::class, CommandersDecisionChallenge::class),
+            Pair(TaskPassesChallenge::class, CommandersDistributionChallenge::class),
+            Pair(CommandersDistributionChallenge::class, CommandersDecisionChallenge::class),
+            Pair(CommanderIsSkippedChallenge::class, CommandersDecisionChallenge::class),
+            Pair(CommanderIsSkippedChallenge::class, CommandersDistributionChallenge::class),
 
             //Task card tokens
             Pair(UnorderedTokensChallenge::class, CommandersDecisionChallenge::class),
@@ -57,7 +62,6 @@ class ChallengeIncompatibilityTable {
             Pair(LimitedCommunicationsPerTrick::class, WinCommunicationByTricksChallenge::class),
             Pair(LimitedCommunicationsPerTrick::class, WinCommunicationByTasksChallenge::class),
             //other
-            Pair(CommanderIsSkippedChallenge::class, CommandersDecisionChallenge::class),
             Pair(JesterTrumpChallenge::class, WinEachTrumpChallenge::class),
         )
         //returns true if any of the list of challenges is incompatible with the given challenge. False otherwise

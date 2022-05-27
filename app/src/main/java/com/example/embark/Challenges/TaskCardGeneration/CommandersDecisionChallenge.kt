@@ -32,7 +32,7 @@ class CommandersDecisionChallenge(numberOfPlayers: Int, difficulty: Int, game: S
         if (tasks == 0 ) {
             tasks = 1
         }
-        var extraMod = if (tasks > 4) 1 else 0
+        var extraMod = if (tasks > 3) tasks - 3 else 0
         challengeDifficulty = tasks * useMod + extraMod
         return this
     }

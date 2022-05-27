@@ -9,6 +9,7 @@ import com.example.embark.Challenges.PreGame.RandomCardPassChallenge
 import com.example.embark.Challenges.TaskCardGeneration.BasicTaskCardsChallenge
 import com.example.embark.Challenges.TaskCardGeneration.CommandersDecisionChallenge
 import com.example.embark.Challenges.TaskCardSelection.CommanderIsSkippedChallenge
+import com.example.embark.Challenges.TaskCardSelection.CommandersDistributionChallenge
 import com.example.embark.Challenges.TaskCardSelection.TaskPassesChallenge
 import com.example.embark.Challenges.TaskTokens.*
 import kotlin.random.Random
@@ -57,10 +58,13 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         PassingForCommunicationChallenge::class,
         DiscardByCommunicationTokenChallenge::class,
         FirstTrickPoolChallenge::class,
+        CommandersDistributionChallenge::class,
         BreakSuitChallenge::class,
         PassAfterCardWinsChallenge::class,
         CantLeadUntilTakenChallenge::class,
         LimitedCommunicationsPerTrick::class,
+        TakeWithOnesChallenge::class,
+        TakeAllOfOneSuitChallenge::class,
     )
 
     init{
@@ -86,7 +90,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
             var incompatible = ChallengeIncompatibilityTable.incompatibleWithAny(chosenChallenges,CommandersDecisionChallenge::class)
             var remainingDifficulty = getRemainingDifficulty(chosenChallenges)
             var decisionChallenge = CommandersDecisionChallenge(playerCount, remainingDifficulty, game).chooseChallenge()
-            var insufficientDifficulty = remainingDifficulty < decisionChallenge.getDifficultyMod()
+            var insufficientDifficulty = remainingDifficulty < decisionChallenge.challengeDifficulty
             var mustDoBasic = incompatible || chosenChallenges.size == 4 || insufficientDifficulty
             if (!mustDoBasic && Random.nextInt(2) == 0) {
                 chosenChallenges.add(decisionChallenge)
@@ -250,6 +254,7 @@ class ChallengeSelector(difficulty: Int, playerCount: Int, game: String) {
         var swap = chosenChallenges.filter { it::class == SwapTaskTokensChallenge::class || it::class == MoveTaskTokenChallenge::class} as List<Challenge>
         if (swap.isNotEmpty() && (!ordered || tokens < 2) ) {
             chosenChallenges.remove(swap[0])
+            chosenChallenges.addAll(tokenChallenges)
             return chooseBalancedTokensAndTasks(chosenChallenges, tokenChallenges, false)
         }
         // When all cards have tokens, swap omega last for another ordered token if possible
