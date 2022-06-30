@@ -8,9 +8,9 @@ class WinCommunicationByTasksChallenge(numberOfPlayers: Int, difficulty: Int, ga
     override val weight: Int
         get() = 5
     override val difficultyMod: Array<Int>
-        get() = arrayOf(3,4,5)
+        get() = arrayOf(1,2,3)
     override val description: String
-        get() = "Players start with 0 communication tokens, but gain one token for every task they complete. Won tokens are awarded to the player who completed the task. The player does not gain another token if they still have an unused or in-use one"
+        get() = "Players start with 0 communication tokens, but gain one token for every task they complete. Won tokens are placed in a pool and can be taken by any player."
     override var icon: Int = R.drawable.tasks_for_comms
 
     override val crew1Compatible: Boolean

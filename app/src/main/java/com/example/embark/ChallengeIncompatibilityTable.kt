@@ -45,6 +45,8 @@ class ChallengeIncompatibilityTable {
             Pair(MidTurnCommunicationChallenge::class, FirstTurnCommunicationChallenge::class),
             Pair(PassingForCommunicationChallenge::class, UnorderedCommunicationChallenge::class),
             Pair(WinCommunicationByTasksChallenge::class, WinCommunicationByTricksChallenge::class),
+            Pair(WinCommunicationByTasksChallenge::class, FewerCommunicationTokensChallenge::class),
+            Pair(WinCommunicationByTricksChallenge::class, FewerCommunicationTokensChallenge::class),
 
             Pair(DiscardByCommunicationTokenChallenge::class, PassingForCommunicationChallenge::class),
             Pair(DiscardByCommunicationTokenChallenge::class, TrumpMayBeCommunicatedChallenge::class),

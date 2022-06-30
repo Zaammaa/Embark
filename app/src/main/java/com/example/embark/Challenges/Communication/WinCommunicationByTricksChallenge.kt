@@ -9,9 +9,9 @@ class WinCommunicationByTricksChallenge(numberOfPlayers: Int, difficulty: Int, g
     override val weight: Int
         get() = 5
     override val difficultyMod: Array<Int>
-        get() = arrayOf(1,2,2)
+        get() = arrayOf(-1,0,0)
     override val description: String
-        get() = "Players start with 0 communication tokens, but gain one token for every trick they take. Won tokens are awarded to the player who took the trick. The player does not gain another token if they still have an unused or in-use one"
+        get() = "Players start with 0 communication tokens, but gain one token for every trick they take. Won tokens are placed in a pool and can be taken by any player."
     override var icon: Int = R.drawable.tricks_for_comms
 
     override val crew1Compatible: Boolean
@@ -39,7 +39,7 @@ class WinCommunicationByTricksChallenge(numberOfPlayers: Int, difficulty: Int, g
     }
 
     override fun displayFullDescription(): String{
-        return "Players start with 0 communication tokens, but gain one token for every $tricksPerToken tricks they take. Won tokens are awarded to the player who took the trick. The player does not gain another token if they still have an unused or in-use one"
+        return "Players start with 0 communication tokens, but gain one token for every $tricksPerToken tricks they take. Won tokens are placed in a pool and can be taken by any player."
     }
 
     override fun displayShortDescription(): String{

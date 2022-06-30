@@ -27,6 +27,13 @@ class TaskPassesChallenge(numberOfPlayers: Int, difficulty: Int, game: String) :
             challengeDifficulty = getDifficultyMod() * (passes - 1)
         } else {
             challengeDifficulty = getDifficultyMod() * passes
+            if (passes >= 3){
+                challengeDifficulty += 1;
+            }
+        }
+        //reduce how much the difficulty increases for high pass counts
+        if (passes == 4){
+            challengeDifficulty += 1;
         }
         if (game == GameModes.DeepSea) {
             icon = R.drawable.octopus_black
