@@ -9,7 +9,7 @@ class WinCommunicationByTricksChallenge(numberOfPlayers: Int, difficulty: Int, g
     override val weight: Int
         get() = 5
     override val difficultyMod: Array<Int>
-        get() = arrayOf(-1,0,0)
+        get() = arrayOf(-1,0,1)
     override val description: String
         get() = "Players start with 0 communication tokens, but gain one token for every trick they take. Won tokens are placed in a pool and can be taken by any player."
     override var icon: Int = R.drawable.tricks_for_comms
